@@ -5,19 +5,22 @@ import menDropDown from "../../../assets/Images/menDropDown.jpg";
 function ShopNavList({ openShop, setOpenShop }) {
   return (
     <>
-      <div onMouseLeave={() => setOpenShop(false)} className="relative">
+      <div
+        onMouseLeave={() => setOpenShop(false)}
+        className="relative h-full flex items-center"
+      >
         <button
           onMouseOver={() => setOpenShop(true)}
           className="hover:text-gray-200
                        flex flex-row text-center place-items-center transition delay-700 duration-500 ease-in-out"
         >
           <span className="mr-1">Shop</span>
-          <AiOutlineDown className="text-sm" />
+          <AiOutlineDown className="text-base" />
         </button>
 
         <div
-          className={`absolute right-0 left-0 top-11
-                       w-[790px]  h-[400px] bg-gray-800  mt-2 rounded-lg shadow-xl ${
+          className={`absolute  left-[-100px]  top-[72px]
+                       w-[840px]  h-[400px] bg-gray-700  mt-2 rounded-lg shadow-xl ${
                          openShop
                            ? "flex flex-row gap-5 justify-center "
                            : "hidden"
@@ -29,25 +32,25 @@ function ShopNavList({ openShop, setOpenShop }) {
             <hr className="my-2" />
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-sm hover:bg-gray-100"
+                        px-3 py-2 text-base hover:bg-gray-900"
             >
               Tops & Tees
             </li>
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-sm hover:bg-gray-100"
+                        px-3 py-2 text-base hover:bg-gray-900"
             >
               Activewear
             </li>
             <li
               className="flex w-full items-center
-                         px-3 py-2 text-sm hover:bg-gray-100"
+                         px-3 py-2 text-base hover:bg-gray-900"
             >
               Dresses & Skirts
             </li>
             <li
               className="flex w-full items-center
-                         px-3 py-2 text-sm hover:bg-gray-100"
+                         px-3 py-2 text-base hover:bg-gray-900"
             >
               Hoodies & Sweaters
             </li>
@@ -63,31 +66,31 @@ function ShopNavList({ openShop, setOpenShop }) {
             <hr className="my-2" />
             <li
               className="flex w-full items-center
-                         px-3 py-2 text-sm hover:bg-gray-100"
+                         px-3 py-2 text-base hover:bg-gray-900"
             >
               Jackets
             </li>
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-sm hover:bg-gray-100"
+                        px-3 py-2 text-base hover:bg-gray-900"
             >
               Hoodies & Sweaters
             </li>
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-sm hover:bg-gray-100"
+                        px-3 py-2 text-base hover:bg-gray-900"
             >
               Joggers & Sweatpants
             </li>
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-sm hover:bg-gray-100"
+                        px-3 py-2 text-base hover:bg-gray-900"
             >
               Pants
             </li>
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-sm hover:bg-gray-100"
+                        px-3 py-2 text-base hover:bg-gray-900"
             >
               Tops & Tees
             </li>
