@@ -32,7 +32,7 @@ function AccessoriesShowMore({ showMoreAccs, setShowMoreAccs }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            \\\
+            Jewelry
           </a>
         </li>
         <li>
@@ -40,7 +40,7 @@ function AccessoriesShowMore({ showMoreAccs, setShowMoreAccs }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            \\\
+            Scarves
           </a>
         </li>
         <li>
@@ -48,7 +48,23 @@ function AccessoriesShowMore({ showMoreAccs, setShowMoreAccs }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            \\\
+            Sunglasses
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          >
+            Hats & Belts
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          >
+            Bags
           </a>
         </li>
       </ul>

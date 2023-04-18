@@ -27,7 +27,7 @@ function BrandsShowMore({ showMoreBd, setShowMoreBd }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            ///
+            Tommy Hilfiger
           </a>
         </li>
         <li>
@@ -35,7 +35,7 @@ function BrandsShowMore({ showMoreBd, setShowMoreBd }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            ///
+            Calvin Klein
           </a>
         </li>
         <li>
@@ -43,7 +43,31 @@ function BrandsShowMore({ showMoreBd, setShowMoreBd }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            ///
+            Emporio Armani
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          >
+            Guess
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          >
+            Michael Kors
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          >
+            Hugo
           </a>
         </li>
       </ul>

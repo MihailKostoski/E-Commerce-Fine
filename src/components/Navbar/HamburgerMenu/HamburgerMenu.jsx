@@ -1,19 +1,30 @@
 import React from "react";
 import { useState, useRef } from "react";
-import { AiOutlineClose, AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import {
+  AiOutlineClose,
+  AiOutlineDown,
+  AiOutlineSearch,
+  AiOutlineUp,
+} from "react-icons/ai";
 import WomenShowMore from "./ShowMoreHamb/WomenShowMore";
 import MenShowMore from "./ShowMoreHamb/MenShowMore";
 import AccessoriesShowMore from "./ShowMoreHamb/AccessoriesShowMore";
 import BrandsShowMore from "./ShowMoreHamb/BrandsShowMore";
 import AboutFineShowMore from "./ShowMoreHamb/AboutFineShowMore";
 
-function HamburgerMenu({ hambMenuOpen, setHambMenuOpen }) {
+function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
   const [showMoreWom, setShowMoreWom] = useState(false);
   const [showMoreMen, setShowMoreMen] = useState(false);
   const [showMoreAccs, setShowMoreAccs] = useState(false);
   const [showMoreBd, setShowMoreBd] = useState(false);
   const [showMoreAbFi, setShowMoreAbFi] = useState(false);
 
+  const handleSearchOpen = () => {
+    if (hambMenuOpen) {
+      setHambMenuOpen(false);
+      setSearchOpen(true);
+    }
+  };
   return (
     <div>
       <div
@@ -26,7 +37,7 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen }) {
         </h5>
         <button
           onClick={() => setHambMenuOpen(false)}
-          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 hover:text-base rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
         >
           <AiOutlineClose />
           <span className="sr-only">Close menu</span>
@@ -34,13 +45,15 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen }) {
         <div className="py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             <li>
-              <a
-                href="#"
+              <div
+                onClick={handleSearchOpen}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                {/* <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path><path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path></svg> */}
                 <span className="flex-1 ml-3 whitespace-nowrap">Search</span>
-              </a>
+                <div className="text-lg hover:text-xl">
+                  <AiOutlineSearch />
+                </div>
+              </div>
             </li>
             <li>
               <a

@@ -8,6 +8,7 @@ import AccessoriesList from "./DropDownLists/AccessoriesList";
 import BrandsList from "./DropDownLists/BrandsList";
 import AboutFineList from "./DropDownLists/AboutFineList";
 import HamburgerMenu from "./HamburgerMenu/HamburgerMenu";
+import Search from "./HamburgerMenu/ShowMoreHamb/Search/Search";
 
 function Navbar() {
   const [openShop, setOpenShop] = useState(false);
@@ -15,10 +16,10 @@ function Navbar() {
   const [openBrands, setOpenBrands] = useState(false);
   const [openAboutUs, setOpenAboutUs] = useState(false);
   const [hambMenuOpen, setHambMenuOpen] = useState(false);
-
+  const [searchOpen, setSearchOpen] = useState(false);
   return (
     <>
-      <div className="flex flex-wrap place-items-center h-[80px]">
+      <div className="flex sticky top-0 z-50 flex-wrap place-items-center h-[80px]">
         <section className="relative mx-auto h-full">
           {/* <!-- navbar --> */}
           <nav className="flex justify-between bg-gray-900 text-white h-full w-screen">
@@ -87,7 +88,7 @@ function Navbar() {
               </span>
             </a>
             <button
-              className="navbar-burger self-center mr-12 text-xl lg:hidden"
+              className="navbar-burger self-center mr-12 text-xl lg:hidden hover:text-2xl"
               href="#"
               onClick={() => setHambMenuOpen(true)}
             >
@@ -97,12 +98,14 @@ function Navbar() {
             <HamburgerMenu
               hambMenuOpen={hambMenuOpen}
               setHambMenuOpen={setHambMenuOpen}
+              setSearchOpen={setSearchOpen}
             />
+            <Search searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
             <div
-              onClick={() => setHambMenuOpen(false)}
+              onClick={() => setHambMenuOpen(false) || setSearchOpen(false)}
               className={`fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 z-10 transition-opacity duration-500
     ${
-      hambMenuOpen
+      hambMenuOpen || searchOpen
         ? "opacity-100 pointer-events-auto"
         : "opacity-0 pointer-events-none"
     }`}

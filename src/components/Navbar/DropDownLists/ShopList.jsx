@@ -12,7 +12,7 @@ function ShopNavList({ openShop, setOpenShop }) {
         <button
           onMouseOver={() => setOpenShop(true)}
           className="hover:text-gray-200
-                       flex flex-row text-center place-items-center transition delay-700 duration-500 ease-in-out"
+                       flex flex-row text-center place-items-center transition-all delay-300"
         >
           <span className="mr-1">Shop</span>
           <AiOutlineDown className="text-base" />

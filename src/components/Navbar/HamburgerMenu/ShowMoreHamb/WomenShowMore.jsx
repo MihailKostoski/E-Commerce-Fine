@@ -27,7 +27,7 @@ function WomenShowMore({ showMoreWom, setShowMoreWom }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            ///
+            Tops & Tees
           </a>
         </li>
         <li>
@@ -35,7 +35,7 @@ function WomenShowMore({ showMoreWom, setShowMoreWom }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            ///
+            Activewear
           </a>
         </li>
         <li>
@@ -43,7 +43,15 @@ function WomenShowMore({ showMoreWom, setShowMoreWom }) {
             href="#"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            ///
+            Dresses & Skirts
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+          >
+            Hoodies & Sweaters
           </a>
         </li>
       </ul>
