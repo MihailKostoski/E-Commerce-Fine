@@ -1,14 +1,13 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
+import { Link } from "react-router-dom";
+
 function AccessoriesList({ openAcessories, setOpenAcessories }) {
+  console.log("hi acessories here");
   return (
     <>
-      <div
-        onMouseLeave={() => setOpenAcessories(false)}
-        className="relative h-full flex items-center"
-      >
+      <div className="relative h-full flex items-center">
         <button
-          onMouseOver={() => setOpenAcessories(true)}
           className="hover:text-gray-200 flex flex-row
            text-center place-items-center transition delay-350 duration-300 ease-in-out"
         >
@@ -18,40 +17,69 @@ function AccessoriesList({ openAcessories, setOpenAcessories }) {
 
         <div
           className={`absolute right-0 left-[-30px]
-           top-[72px] w-56 h-[280px] bg-gray-700 py-2 mt-2 rounded-lg shadow-xl ${
-             openAcessories ? "flex flex-row justify-start" : "hidden"
+           top-[72px] w-56 h-[280px]  bg-gray-700 py-2 mt-2 rounded-lg shadow-xl ${
+             openAcessories ? "flex flex-row   justify-start" : "hidden"
            }`}
         >
           <ul>
             <li
               className="flex w-full items-center 
-          px-3 py-2 text-base hover:bg-gray-900"
+    text-base hover:bg-gray-900"
             >
-              Jewelry
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/accessories-jewelry"
+              >
+                Jewelry
+              </Link>
             </li>
+
             <li
               className="flex w-full items-center 
-          px-3 py-2 text-base hover:bg-gray-900"
+    text-base hover:bg-gray-900"
             >
-              Scarves
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/accessories-scarves"
+              >
+                Scarves
+              </Link>
             </li>
+
             <li
-              className="flex w-full items-center
-           px-3 py-2 text-base hover:bg-gray-900"
+              className="flex w-full items-center 
+    text-base hover:bg-gray-900"
             >
-              Sunglasses
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/accessories-sunglasses"
+              >
+                Sunglasses
+              </Link>
             </li>
+
             <li
-              className="flex w-full items-center
-           px-3 py-2 text-base hover:bg-gray-900"
+              className="flex w-full items-center 
+    text-base hover:bg-gray-900"
             >
-              Hats & Belts
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/accessories-hats-belts"
+              >
+                Hats & Belts
+              </Link>
             </li>
+
             <li
-              className="flex w-full items-center
-           px-3 py-2 text-base hover:bg-gray-900"
+              className="flex w-full items-center 
+    text-base hover:bg-gray-900"
             >
-              Bags
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/accessories-bags"
+              >
+                Bags
+              </Link>
             </li>
           </ul>
         </div>
@@ -60,4 +88,4 @@ function AccessoriesList({ openAcessories, setOpenAcessories }) {
   );
 }
 
-export default AccessoriesList;
+export const MemoizedAccessoriesList = React.memo(AccessoriesList);

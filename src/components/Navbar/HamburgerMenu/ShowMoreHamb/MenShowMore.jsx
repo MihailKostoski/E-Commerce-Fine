@@ -1,6 +1,8 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
+import { Link } from "react-router-dom";
 function MenShowMore({ showMoreMen, setShowMoreMen }) {
+  console.log("Memo Men Show More");
   const handleToggle = () => {
     setShowMoreMen((current) => !current);
   };
@@ -23,48 +25,47 @@ function MenShowMore({ showMoreMen, setShowMoreMen }) {
         className={`py-2 space-y-2 ${showMoreMen ? "flex flex-col" : "hidden"}`}
       >
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/men-jackets"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Jackets
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/men-hoodies-sweaters"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Hoodies & Sweaters
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/men-joggers-sweatpants"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Joggers & Sweatpants
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/men-pants"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Pants
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/men-tops-tees"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Tops & Tees
-          </a>
+          </Link>
         </li>
       </ul>
     </>
   );
 }
-
-export default MenShowMore;
+export const MemoizedMenShowMore = React.memo(MenShowMore);

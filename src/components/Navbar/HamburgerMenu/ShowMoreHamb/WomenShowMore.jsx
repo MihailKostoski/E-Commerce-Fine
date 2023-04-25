@@ -1,9 +1,12 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
+import { Link } from "react-router-dom";
 function WomenShowMore({ showMoreWom, setShowMoreWom }) {
   const handleToggle = () => {
     setShowMoreWom((current) => !current);
   };
+
+  console.log("Memo Women Show More");
   return (
     <>
       <button
@@ -23,40 +26,40 @@ function WomenShowMore({ showMoreWom, setShowMoreWom }) {
         className={`py-2 space-y-2 ${showMoreWom ? "flex flex-col" : "hidden"}`}
       >
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/tops-tees"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Tops & Tees
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/activewear"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Activewear
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/dresses-skirts"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Dresses & Skirts
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/hoodies-sweaters"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Hoodies & Sweaters
-          </a>
+          </Link>
         </li>
       </ul>
     </>
   );
 }
 
-export default WomenShowMore;
+export const MemoizedWomenShowMore = React.memo(WomenShowMore);

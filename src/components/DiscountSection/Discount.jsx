@@ -1,7 +1,9 @@
 import React from "react";
 import discountImg from "../../assets/Images/discountImg.jpg";
 import discountImgSecond from "../../assets/Images/discountImgSecond.jpg";
+
 function Discount() {
+  console.log("discount");
   return (
     <>
       <div className="w-screen h-[360px] bg-gradient-to-r from-yellow-600  via-gray-300 to-yellow-600 flex flex-row  gap-10 justify-center">
@@ -20,7 +22,7 @@ function Discount() {
         <img
           className="hidden w-[30%] h-full md:flex"
           src={discountImgSecond}
-          alt="discount image"
+          alt="discount imageSecond"
         />
       </div>
     </>

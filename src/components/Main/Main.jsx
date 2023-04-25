@@ -1,12 +1,15 @@
 import React from "react";
+import { lazy, Suspense } from "react";
 import Sidebar from "../Sidebar/Sidebar";
-import MainGrid from "./MainGrid";
 
+const MainGrid = lazy(() => import("./MainGrid/MainGrid"));
 function Main() {
   return (
     <div className="flex flex-row ">
       <Sidebar />
-      <MainGrid />
+      <Suspense fallback={<div>Loading...</div>}>
+        <MainGrid />
+      </Suspense>
     </div>
   );
 }

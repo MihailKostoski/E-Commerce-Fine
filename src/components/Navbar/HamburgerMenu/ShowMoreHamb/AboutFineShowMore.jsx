@@ -4,6 +4,7 @@ function AboutFineShowMore({ showMoreAbFi, setShowMoreAbFi }) {
   const handleToggle = () => {
     setShowMoreAbFi((current) => !current);
   };
+  console.log("Memo Aout Fine Show More");
   return (
     <>
       <button
@@ -47,4 +48,4 @@ function AboutFineShowMore({ showMoreAbFi, setShowMoreAbFi }) {
   );
 }
 
-export default AboutFineShowMore;
+export const MemoizedAboutFineShowMore = React.memo(AboutFineShowMore);

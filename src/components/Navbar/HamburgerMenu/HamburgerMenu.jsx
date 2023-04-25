@@ -6,11 +6,11 @@ import {
   AiOutlineSearch,
   AiOutlineUp,
 } from "react-icons/ai";
-import WomenShowMore from "./ShowMoreHamb/WomenShowMore";
-import MenShowMore from "./ShowMoreHamb/MenShowMore";
-import AccessoriesShowMore from "./ShowMoreHamb/AccessoriesShowMore";
-import BrandsShowMore from "./ShowMoreHamb/BrandsShowMore";
-import AboutFineShowMore from "./ShowMoreHamb/AboutFineShowMore";
+import { MemoizedWomenShowMore } from "./ShowMoreHamb/WomenShowMore";
+import { MemoizedMenShowMore } from "./ShowMoreHamb/MenShowMore";
+import { MemoizedAccessoriesShowMore } from "./ShowMoreHamb/AccessoriesShowMore";
+import { MemoizedBrandsShowMore } from "./ShowMoreHamb/BrandsShowMore";
+import { MemoizedAboutFineShowMore } from "./ShowMoreHamb/AboutFineShowMore";
 
 function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
   const [showMoreWom, setShowMoreWom] = useState(false);
@@ -25,6 +25,7 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
       setSearchOpen(true);
     }
   };
+  console.log("hamb menu");
   return (
     <div>
       <div
@@ -92,31 +93,31 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
               </a>
             </li>
             <li>
-              <WomenShowMore
+              <MemoizedWomenShowMore
                 showMoreWom={showMoreWom}
                 setShowMoreWom={setShowMoreWom}
               />
             </li>
             <li>
-              <MenShowMore
+              <MemoizedMenShowMore
                 showMoreMen={showMoreMen}
                 setShowMoreMen={setShowMoreMen}
               />
             </li>
             <li>
-              <AccessoriesShowMore
+              <MemoizedAccessoriesShowMore
                 showMoreAccs={showMoreAccs}
                 setShowMoreAccs={setShowMoreAccs}
               />
             </li>
             <li>
-              <BrandsShowMore
+              <MemoizedBrandsShowMore
                 showMoreBd={showMoreBd}
                 setShowMoreBd={setShowMoreBd}
               />
             </li>
             <li>
-              <AboutFineShowMore
+              <MemoizedAboutFineShowMore
                 showMoreAbFi={showMoreAbFi}
                 setShowMoreAbFi={setShowMoreAbFi}
               />
@@ -138,4 +139,4 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
   );
 }
 
-export default HamburgerMenu;
+export const MemoizedHamburgerMenu = React.memo(HamburgerMenu);

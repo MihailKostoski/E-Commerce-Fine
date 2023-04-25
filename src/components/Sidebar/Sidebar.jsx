@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Sidebar() {
   return (
     <div>
@@ -7,38 +7,66 @@ function Sidebar() {
         <div className="py-4 overflow-y-auto">
           <ul className="space-y-2 font-medium">
             <li>
-              {" "}
               <ul className="mt-2">
                 <h3
                   className="flex w-full items-center 
-                        px-3 py-2 text-lg font-bold "
+                         text-lg font-bold "
                 >
-                  Women
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/women"
+                  >
+                    Women
+                  </Link>
                 </h3>
+
                 <hr className="my-2" />
+
                 <li
                   className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-200"
+ text-base hover:bg-gray-200"
                 >
-                  Tops & Tees
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/tops-tees"
+                  >
+                    Tops & Tees
+                  </Link>
                 </li>
                 <li
                   className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-200"
+                     text-base hover:bg-gray-200"
                 >
-                  Activewear
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/activewear"
+                  >
+                    Activewear
+                  </Link>
                 </li>
+
                 <li
-                  className="flex w-full items-center
-                         px-3 py-2 text-base hover:bg-gray-200"
+                  className="flex w-full items-center 
+                   text-base hover:bg-gray-200"
                 >
-                  Dresses & Skirts
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/dresses-skirts"
+                  >
+                    Dresses & Skirts
+                  </Link>
                 </li>
+
                 <li
-                  className="flex w-full items-center
-                         px-3 py-2 text-base hover:bg-gray-200"
+                  className="flex w-full items-center 
+                         text-base hover:bg-gray-200"
                 >
-                  Hoodies & Sweaters
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/hoodies-sweaters"
+                  >
+                    Hoodies & Sweaters
+                  </Link>
                 </li>
               </ul>
             </li>
@@ -46,112 +74,223 @@ function Sidebar() {
               <ul className="mt-2">
                 <h3
                   className="flex w-full items-center 
-                        px-3 py-2 text-lg font-bold"
+                         text-lg font-bold"
                 >
-                  Men
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/men"
+                  >
+                    Men
+                  </Link>
                 </h3>
+
                 <hr className="my-2" />
-                <li
-                  className="flex w-full items-center
-                         px-3 py-2 text-base hover:bg-gray-200"
-                >
-                  Jackets
-                </li>
+
                 <li
                   className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-200"
+                         text-base hover:bg-gray-200"
                 >
-                  Hoodies & Sweaters
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/men-jackets"
+                  >
+                    Jackets
+                  </Link>
                 </li>
+
                 <li
                   className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-200"
+                         text-base hover:bg-gray-200"
                 >
-                  Joggers & Sweatpants
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/men-hoodies-sweaters"
+                  >
+                    Hoodies & Sweaters
+                  </Link>
                 </li>
+
                 <li
                   className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-200"
+                         text-base hover:bg-gray-200"
                 >
-                  Pants
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/men-joggers-sweatpants"
+                  >
+                    Joggers & Sweatpants
+                  </Link>
                 </li>
+
                 <li
                   className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-200"
+                         text-base hover:bg-gray-200"
                 >
-                  Tops & Tees
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/men-pants"
+                  >
+                    Pants
+                  </Link>
+                </li>
+
+                <li
+                  className="flex w-full items-center 
+                         text-base hover:bg-gray-200"
+                >
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/men-tops-tees"
+                  >
+                    Tops & Tees
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              {" "}
               <ul>
                 <h3
                   className="flex w-full items-center 
-                        px-3 py-2 text-lg font-bold"
+                         text-lg font-bold"
                 >
-                  Accessories
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/accessories"
+                  >
+                    Accessories
+                  </Link>
                 </h3>
+
                 <hr className="my-2" />
+
                 <li
                   className="flex w-full items-center 
-          px-3 py-2 text-base hover:bg-gray-200"
+           text-base hover:bg-gray-200"
                 >
-                  Jewelry
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/accessories-jewelry"
+                  >
+                    Jewelry
+                  </Link>
                 </li>
+
                 <li
                   className="flex w-full items-center 
-          px-3 py-2 text-base hover:bg-gray-200"
+           text-base hover:bg-gray-200"
                 >
-                  Scarves
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/accessories-scarves"
+                  >
+                    Scarves
+                  </Link>
                 </li>
+
                 <li
-                  className="flex w-full items-center
-           px-3 py-2 text-base hover:bg-gray-200"
+                  className="flex w-full items-center 
+           text-base hover:bg-gray-200"
                 >
-                  Sunglasses
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/accessories-sunglasses"
+                  >
+                    Sunglasses
+                  </Link>
                 </li>
+
                 <li
-                  className="flex w-full items-center
-           px-3 py-2 text-base hover:bg-gray-200"
+                  className="flex w-full items-center 
+           text-base hover:bg-gray-200"
                 >
-                  Hats & Belts
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/accessories-hats-belts"
+                  >
+                    Hats & Belts
+                  </Link>
                 </li>
+
                 <li
-                  className="flex w-full items-center
-           px-3 py-2 text-base hover:bg-gray-200"
+                  className="flex w-full items-center 
+           text-base hover:bg-gray-200"
                 >
-                  Bags
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/accessories-bags"
+                  >
+                    Bags
+                  </Link>
                 </li>
               </ul>
             </li>
             <li>
-              {" "}
               <ul>
                 <h3
                   className="cursor-pointer flex w-full items-center 
-                        px-3 py-2 text-lg font-bold "
+                         text-lg font-bold "
                 >
-                  Brands
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/brands"
+                  >
+                    Brands
+                  </Link>
                 </h3>
+
                 <hr className="my-2" />
-                <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-200">
-                  Tommy Hilfiger
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/brands-tommy-hilfiger"
+                  >
+                    Tommy Hilfiger
+                  </Link>
                 </li>
-                <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-200">
-                  Calvin Klein
+
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/brands-calvin-klein"
+                  >
+                    Calvin Klein
+                  </Link>
                 </li>
-                <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-200">
-                  Emporio Armani
+
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full  px-3 py-2"
+                    to="/collections/brands-emporio-armani"
+                  >
+                    Emporio Armani
+                  </Link>
                 </li>
-                <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-200">
-                  Guess
+
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/brands-guess"
+                  >
+                    Guess
+                  </Link>
                 </li>
-                <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-200">
-                  Michael Kors
+
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/brands-michael-kors"
+                  >
+                    Michael Kors
+                  </Link>
                 </li>
-                <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-200">
-                  Hugo
+
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/brands-hugo-boss"
+                  >
+                    Hugo Boss
+                  </Link>
                 </li>
               </ul>
             </li>

@@ -1,10 +1,13 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 function AccessoriesShowMore({ showMoreAccs, setShowMoreAccs }) {
   const handleToggle = () => {
     setShowMoreAccs((current) => !current);
   };
+
+  console.log("Memo Accessories Show More");
   return (
     <>
       <button
@@ -28,48 +31,47 @@ function AccessoriesShowMore({ showMoreAccs, setShowMoreAccs }) {
         }`}
       >
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/accessories-jewelry"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Jewelry
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/accessories-scarves"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Scarves
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/accessories-sunglasses"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Sunglasses
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/accessories-hats-belts"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Hats & Belts
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/accessories-bags"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Bags
-          </a>
+          </Link>
         </li>
       </ul>
     </>
   );
 }
-
-export default AccessoriesShowMore;
+export const MemoizedAccessoriesShowMore = React.memo(AccessoriesShowMore);

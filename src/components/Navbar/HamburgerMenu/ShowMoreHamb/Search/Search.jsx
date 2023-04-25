@@ -5,6 +5,7 @@ function Search({ searchOpen, setSearchOpen }) {
   const handleCloseSearchMenu = () => {
     setSearchOpen((current) => !current);
   };
+  console.log("searchh");
   return (
     <>
       <div
@@ -35,4 +36,4 @@ function Search({ searchOpen, setSearchOpen }) {
   );
 }
 
-export default Search;
+export const MemoizedSearch = React.memo(Search);

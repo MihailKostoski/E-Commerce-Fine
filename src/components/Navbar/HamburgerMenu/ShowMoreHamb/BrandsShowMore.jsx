@@ -1,9 +1,12 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
+import { Link } from "react-router-dom";
 function BrandsShowMore({ showMoreBd, setShowMoreBd }) {
   const handleToggle = () => {
     setShowMoreBd((current) => !current);
   };
+
+  console.log("Memo Brands Show More");
   return (
     <>
       <button
@@ -23,56 +26,55 @@ function BrandsShowMore({ showMoreBd, setShowMoreBd }) {
         className={`py-2 space-y-2 ${showMoreBd ? "flex flex-col" : "hidden"}`}
       >
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/brands-tommy-hilfiger"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Tommy Hilfiger
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/brands-calvin-klein"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Calvin Klein
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/brands-emporio-armani"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Emporio Armani
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/brands-guess"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Guess
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/brands-michael-kors"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
             Michael Kors
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="#"
+          <Link
+            to="/collections/brands-hugo-boss"
             className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
           >
-            Hugo
-          </a>
+            Hugo Boss
+          </Link>
         </li>
       </ul>
     </>
   );
 }
-
-export default BrandsShowMore;
+export const MemoizedBrandsShowMore = React.memo(BrandsShowMore);

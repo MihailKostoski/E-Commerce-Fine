@@ -2,17 +2,15 @@ import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import womenDropDown from "../../../assets/Images/womenDropDown.jpg";
 import menDropDown from "../../../assets/Images/menDropDown.jpg";
+import { Link } from "react-router-dom";
 function ShopNavList({ openShop, setOpenShop }) {
+  console.log("hi shopnavlist here");
   return (
     <>
-      <div
-        onMouseLeave={() => setOpenShop(false)}
-        className="relative h-full flex items-center"
-      >
+      <div className="relative h-full flex items-center">
         <button
-          onMouseOver={() => setOpenShop(true)}
           className="hover:text-gray-200
-                       flex flex-row text-center place-items-center transition-all delay-300"
+                       flex flex-row text-center place-items-center"
         >
           <span className="mr-1">Shop</span>
           <AiOutlineDown className="text-base" />
@@ -20,39 +18,68 @@ function ShopNavList({ openShop, setOpenShop }) {
 
         <div
           className={`absolute  left-[-100px]  top-[72px]
-                       w-[840px]  h-[400px] bg-gray-700  mt-2 rounded-lg shadow-xl ${
+                       w-[840px]  h-[400px] bg-gray-700  transition-opacity duration-300   mt-2 rounded-lg shadow-xl  ${
                          openShop
-                           ? "flex flex-row gap-5 justify-center "
+                           ? "flex flex-row gap-5 justify-center duration-1000 "
                            : "hidden"
                        }`}
         >
           {/* /////////// Women */}
           <ul className="mt-2">
-            <h3 className="flex flex-row justify-center">Women</h3>
+            <h3 className="flex flex-row justify-center">
+              <Link className="py-2 w-[88%]  h-full " to="/collections/women">
+                Women
+              </Link>
+            </h3>
+
             <hr className="my-2" />
+
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-900"
+                        text-base hover:bg-gray-900"
             >
-              Tops & Tees
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/tops-tees"
+              >
+                Tops & Tees
+              </Link>
             </li>
+
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-900"
+                        text-base hover:bg-gray-900"
             >
-              Activewear
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/activewear"
+              >
+                Activewear
+              </Link>
             </li>
+
             <li
-              className="flex w-full items-center
-                         px-3 py-2 text-base hover:bg-gray-900"
+              className="flex w-full items-center 
+                        text-base hover:bg-gray-900"
             >
-              Dresses & Skirts
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/dresses-skirts"
+              >
+                Dresses & Skirts
+              </Link>
             </li>
+
             <li
-              className="flex w-full items-center
-                         px-3 py-2 text-base hover:bg-gray-900"
+              className="flex w-full items-center 
+                        text-base hover:bg-gray-900"
             >
-              Hoodies & Sweaters
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/hoodies-sweaters"
+              >
+                Hoodies & Sweaters
+              </Link>
             </li>
           </ul>
           {/* Vertical Line */}
@@ -62,37 +89,72 @@ function ShopNavList({ openShop, setOpenShop }) {
           ></div>
           {/* ///////////// Men */}
           <ul className="mt-2">
-            <h3 className="flex flex-row justify-center">Men</h3>
+            <h3 className="flex flex-row justify-center">
+              <Link className=" py-2 w-[88%]  h-full " to="/collections/men">
+                Men
+              </Link>
+            </h3>
+
             <hr className="my-2" />
-            <li
-              className="flex w-full items-center
-                         px-3 py-2 text-base hover:bg-gray-900"
-            >
-              Jackets
-            </li>
+
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-900"
+                        text-base hover:bg-gray-900"
             >
-              Hoodies & Sweaters
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/men-jackets"
+              >
+                Jackets
+              </Link>
             </li>
+
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-900"
+                        text-base hover:bg-gray-900"
             >
-              Joggers & Sweatpants
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/men-hoodies-sweaters"
+              >
+                Hoodies & Sweaters
+              </Link>
             </li>
+
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-900"
+                        text-base hover:bg-gray-900"
             >
-              Pants
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/men-joggers-sweatpants"
+              >
+                Joggers & Sweatpants
+              </Link>
             </li>
+
             <li
               className="flex w-full items-center 
-                        px-3 py-2 text-base hover:bg-gray-900"
+                        text-base hover:bg-gray-900"
             >
-              Tops & Tees
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/men-pants"
+              >
+                Pants
+              </Link>
+            </li>
+
+            <li
+              className="flex w-full items-center 
+                        text-base hover:bg-gray-900"
+            >
+              <Link
+                className="px-3 py-2  h-full w-full"
+                to="/collections/men-tops-tees"
+              >
+                Tops & Tees
+              </Link>
             </li>
           </ul>
           {/* img women */}
@@ -116,5 +178,4 @@ function ShopNavList({ openShop, setOpenShop }) {
     </>
   );
 }
-
-export default ShopNavList;
+export const MemoizedShopNavList = React.memo(ShopNavList);
