@@ -81,7 +81,7 @@ function Navbar() {
               </ul>
               {/* <!-- Header Icons --> */}
 
-              <div className="hidden xl:flex items-center space-x-5 items-center">
+              <div className="hidden md:flex items-center space-x-5 items-center">
                 <a className="hover:text-gray-200 text-xl" href="#">
                   <AiOutlineSearch />
                 </a>
@@ -99,12 +99,13 @@ function Navbar() {
                   </span>
                 </Link>
                 {/* <!-- Sign In / Register      --> */}
-                <a
+                <Link
+                  to="/login"
                   className="flex items-center hover:text-gray-200 text-xl"
                   href="#"
                 >
                   <MdPersonOutline />
-                </a>
+                </Link>
               </div>
             </div>
             {/* <!-- Responsive navbar --> */}

@@ -6,52 +6,33 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../../redux/cartSlice";
 
-function Product({ product, vr }) {
+function Product({ product }) {
   const dispatch = useDispatch();
   const handleAddToCart = (product) => {
+    dispatch(addProduct({ ...product }));
     console.log("clicked");
   };
+
   return (
-    <div>
-      <div className="w-64 bg-white shadow-md rounded-xl duration-500 hover:scale-r105 hover:shadow-xl">
-        <div>
-          {/* <Link to={`/collections/${product?.category}/${product?.name}`}> */}
-
-          <LazyLoadImage
-            src={product?.image}
-            alt="Product"
-            className="h-80 w-full object-cover rounded-t-xl"
-            placeholderSrc={spinner}
+    <>
+      <Link to={`/collections/${product.category}/${product.id}`}>
+        <div className="flex flex-col justify-center w-72 h-80 p-2 rounded-md bg-gray-100 md:w-60">
+          <img
+            src={product.image}
+            className="w-full object-cover rounded-md h-[75%]"
+            alt=""
           />
+          <div className="h-[15%] pl-[0.5px]">{product.name}</div>
+          <div className="flex flex-row font-bold justify-between px-[0.5px] h-[10%]">
+            <div>{product.price}$</div>
 
-          <div className="px-4 py-3 w-full">
-            <span className="text-gray-400 mr-3 uppercase text-xs">Brand</span>
-            <Link to={`/collections/${product?.category}/${product?.id}`}>
-              <p className="text-lg font-bold text-black truncate block capitalize">
-                {product?.name}
-              </p>
-            </Link>
-            <div className="flex items-center">
-              <p className="text-lg font-semibold text-black cursor-auto my-3">
-                $149
-              </p>
-              <div>
-                <p className="text-sm text-gray-600 cursor-auto ml-2">
-                  {product?.price}
-                </p>
-              </div>
-
-              <div
-                onClick={() => handleAddToCart(product)}
-                className="ml-auto cursor-pointer"
-              >
-                <BiCartAdd />
-              </div>
-            </div>
+            <button onClick={() => handleAddToCart(product)}>
+              <BiCartAdd />
+            </button>
           </div>
         </div>
-      </div>
-    </div>
+      </Link>
+    </>
   );
 }
 
