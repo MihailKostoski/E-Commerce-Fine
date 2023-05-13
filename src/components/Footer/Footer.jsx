@@ -5,10 +5,10 @@ import logo from "../../assets/Images/logo.png";
 function Footer() {
   return (
     <>
-      <footer className="bg-gray-600 dark:bg-gray-900">
-        <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-          <div className="flex justify-between">
-            <div className="text-xs md:mb-0 sm:text-base">
+      <footer className="bg-gray-600 dark:bg-gray-900 mt-10">
+        <div className="mx-auto   w-full max-w-screen-xl p-4 py-6 lg:py-8">
+          <div className="flex flex-col gap-5 sm:flex-row  justify-between">
+            <div className="self-start text-xs md:mb-0 sm:text-md">
               <a href="" className="flex items-center">
                 <img src={logo} className="h-8 mr-3" alt="Fine Logo" />
                 <span className="text-2xl text-blue-200 font-semibold whitespace-nowrap dark:text-white">
@@ -30,12 +30,12 @@ function Footer() {
                 </li>
               </ul>
             </div>
-            <div className="grid grid-cols-3 gap-3 text-sm sm:grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 sm:text-base">
+            <div className="grid grid-cols-3 gap-3s text-sm sm:grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3 sm:text-md">
               <div>
-                <h2 className="mb-6 text-sm font-semibold text-white uppercase dark:text-white">
+                <h2 className="mb-4 text-sm font-semibold text-white uppercase dark:text-white">
                   INFORMATION
                 </h2>
-                <ul className="text-white dark:text-gray-400 font-medium">
+                <ul className="text-white dark:text-gray-400 ">
                   <li>
                     <a href="" className="hover:underline">
                       Privacy Policy
@@ -54,7 +54,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h2 className="mb-6 text-sm font-semibold text-white uppercase dark:text-white">
+                <h2 className="mb-4 text-sm font-semibold text-white uppercase dark:text-white">
                   MY ACCOUNT
                 </h2>
                 <ul className="text-white dark:text-gray-400 font-medium">
@@ -81,7 +81,7 @@ function Footer() {
                 </ul>
               </div>
               <div>
-                <h2 className="mb-6 self-start text-sm font-semibold text-white uppercase dark:text-white">
+                <h2 className="mb-4 self-start text-sm font-semibold text-white uppercase dark:text-white">
                   QUICK LINKS
                 </h2>
                 <ul className="text-white dark:text-gray-400 font-medium">

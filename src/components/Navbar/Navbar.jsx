@@ -19,9 +19,7 @@ function Navbar() {
   const [openAboutUs, setOpenAboutUs] = useState(false);
   const [hambMenuOpen, setHambMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const cart = useSelector((state) => state.cart);
-
-  console.log(cart, "hi navbar here");
+  const quantity = useSelector((state) => state.cart.quantity);
 
   return (
     <>
@@ -81,7 +79,7 @@ function Navbar() {
               </ul>
               {/* <!-- Header Icons --> */}
 
-              <div className="hidden md:flex items-center space-x-5 items-center">
+              <div className="hidden lg:flex items-center space-x-5 items-center">
                 <a className="hover:text-gray-200 text-xl" href="#">
                   <AiOutlineSearch />
                 </a>
@@ -94,8 +92,10 @@ function Navbar() {
                 >
                   <SlBasket />
                   <span className="flex absolute -mt-5 ml-4">
-                    <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                    <span className="animate-ping absolute inline-flex h-[14px] w-[14px] rounded-full bg-pink-400 opacity-75"></span>
+                    <span className="relative items-center justify-center inline-flex rounded-full h-[14px] w-[14px] bg-pink-500  text-white z-40 text-[9px] font-semibold">
+                      {quantity === 0 ? null : quantity}
+                    </span>
                   </span>
                 </Link>
                 {/* <!-- Sign In / Register      --> */}
@@ -111,12 +111,14 @@ function Navbar() {
             {/* <!-- Responsive navbar --> */}
             <Link
               to="/cart"
-              className="xl:hidden flex mr-6 items-center  text-xl"
+              className="lg:hidden flex mr-6 items-center  text-xl"
             >
               <SlBasket />
               <span className="flex absolute -mt-5 ml-4">
-                <span className="animate-ping absolute inline-flex h-3 w-3 rounded-full bg-pink-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                <span className="animate-ping absolute inline-flex h-[14px] w-[14px] rounded-full bg-pink-400 opacity-75"></span>
+                <span className="relative items-center justify-center inline-flex rounded-full h-[14px] w-[14px] bg-pink-500  text-white z-40 text-[9px] font-semibold">
+                  {quantity === 0 ? null : quantity}
+                </span>
               </span>
             </Link>
             <button

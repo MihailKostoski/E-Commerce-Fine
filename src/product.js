@@ -15,6 +15,7 @@ export const products = {
       quantity: 1,
       color: "",
       size: "",
+      totalPrice: 99.0,
     },
     {
       id: 2,
@@ -26,6 +27,7 @@ export const products = {
       quantity: 1,
       color: "",
       size: "",
+      totalPrice: 42.0,
     },
     {
       id: 3,
@@ -37,6 +39,7 @@ export const products = {
       quantity: 1,
       color: "",
       size: "",
+      totalPrice: 34.0,
     },
     {
       id: 4,
@@ -48,6 +51,7 @@ export const products = {
       quantity: 1,
       color: "",
       size: "",
+      totalPrice: 19.0,
     },
     {
       id: 5,
@@ -59,6 +63,7 @@ export const products = {
       quantity: 1,
       color: "",
       size: "",
+      totalPrice: 19.0,
     },
     {
       id: 6,
@@ -70,6 +75,7 @@ export const products = {
       quantity: 1,
       color: "",
       size: "",
+      totalPrice: 167.0,
     },
   ],
 };

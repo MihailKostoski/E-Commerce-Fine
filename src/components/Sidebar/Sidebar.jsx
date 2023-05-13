@@ -28,9 +28,9 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/tops-tees"
+                    to="/collections/women&t-shirt"
                   >
-                    Tops & Tees
+                    T-Shirts
                   </Link>
                 </li>
                 <li
@@ -39,7 +39,7 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/activewear"
+                    to="/collections/woman&activewear"
                   >
                     Activewear
                   </Link>
@@ -92,7 +92,7 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/men-jackets"
+                    to="/collections/men&jackets"
                   >
                     Jackets
                   </Link>
@@ -140,9 +140,9 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/men-tops-tees"
+                    to="/collections/men&t-shirt"
                   >
-                    Tops & Tees
+                    T-Shirts
                   </Link>
                 </li>
               </ul>

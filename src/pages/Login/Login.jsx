@@ -1,6 +1,15 @@
 import React from "react";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/apiCalls";
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login(dispatch, { username, password });
+  };
   return (
     <>
       <div className="py-6">
@@ -55,7 +64,8 @@ function Login() {
               </label>
               <input
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
-                type="email"
+                type="name"
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
             <div className="mt-4">
@@ -70,10 +80,14 @@ function Login() {
               <input
                 className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
                 type="password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="mt-8">
-              <button className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600">
+              <button
+                onClick={handleSubmit}
+                className="bg-gray-700 text-white font-bold py-2 px-4 w-full rounded hover:bg-gray-600"
+              >
                 Login
               </button>
             </div>
