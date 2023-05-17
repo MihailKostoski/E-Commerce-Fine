@@ -5,29 +5,34 @@ import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import axios from "axios";
 import {
   AiOutlineDown,
+  AiOutlineHeart,
   AiOutlineMinus,
   AiOutlinePlus,
   AiTwotoneMessage,
 } from "react-icons/ai";
-import { RiArrowDropUpFill } from "react-icons/ri";
+
 import { MemoizedStar } from "./Star";
-import { products } from "../../product";
-import { productS } from "../../productS";
 import { useSelector } from "react-redux";
-import { addProduct } from "../../redux/cartSlice";
+import { addProduct, addFavorite } from "../../redux/cartSlice";
 import { useDispatch } from "react-redux";
 import { Navbar } from "../indexComp";
+
 function ProductDetails() {
   const cart = useSelector((state) => state.cart.products);
+
+  const favor = useSelector((state) => state.cart.favorite);
   console.log(cart, "cart");
+  console.log(favor, "favor");
+
   const [rate, setRate] = useState(3);
   const { id } = useParams();
-
+  // const [favorite, setFavorite] = useState();
   const [quantity, setQuantity] = useState(1);
+  const [toggleFavorite, setToggleFavorite] = useState(false);
   const [productDetail, setProductDetail] = useState();
-  const [productDetailSecond, setProductDetailSecond] = useState();
+
   const [price, setPrice] = useState();
-  const [totalPrice, setTotalPrice] = useState(0);
+
   const [color, setColor] = useState();
 
   const [size, setSize] = useState("S");
@@ -42,6 +47,18 @@ function ProductDetails() {
   }, [id]);
 
   const dispatch = useDispatch();
+
+  const handleFavorite = (heart, click) => {
+    dispatch(addFavorite({ heart, click }));
+    if (click === "add") {
+      setToggleFavorite(true);
+    }
+    if (click === "remove") {
+      setToggleFavorite(false);
+    }
+  };
+
+  console.log(toggleFavorite, "toggle");
   const handleAddToCart = (product) => {
     if (color || price || size === undefined) {
       setColor(productDetail?.color);
@@ -51,7 +68,7 @@ function ProductDetails() {
       dispatch(
         addProduct({
           ...product,
-
+          quantity,
           color,
           price,
           size,
@@ -64,6 +81,7 @@ function ProductDetails() {
         })
       );
     }
+    setQuantity(1);
   };
 
   const handleColorClick = useMemo(
@@ -139,30 +157,44 @@ function ProductDetails() {
                 <div className="flex flex-row gap-1">
                   <span className="mr-3">Color</span>
                   <button
-                    onClick={() =>
-                      handleColorClick(productDetail?.colorsAvilable[0])
-                    }
-                    className={`border-2 border-gray-900 bg-${
-                      color ? color : productDetail?.color
-                    }-500 rounded-full w-6 h-6 focus:outline-none`}
+                    className={`border-2 border-gray-900
+                  rounded-full w-6 h-6 focus:outline-none`}
+                    style={{
+                      backgroundColor: `${
+                        color ? color : productDetail?.color
+                      }`,
+                      filter: "brightness(120%)",
+                    }}
                   ></button>
                   <button
                     onClick={() =>
                       handleColorClick(productDetail?.colorsAvilable[0])
                     }
-                    className={`border-2 border-gray-300 bg-${productDetail?.colorsAvilable[0]}-500 rounded-full w-6 h-6 focus:outline-none`}
+                    style={{
+                      backgroundColor: `${productDetail?.colorsAvilable[0]}`,
+                      filter: "brightness(120%)",
+                    }}
+                    className={`border-2 border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
                   ></button>
                   <button
                     onClick={() =>
                       handleColorClick(productDetail?.colorsAvilable[1])
                     }
-                    className={`border-2 border-gray-300  bg-${productDetail?.colorsAvilable[1]}-500 rounded-full w-6 h-6 focus:outline-none`}
+                    style={{
+                      backgroundColor: `${productDetail?.colorsAvilable[1]}`,
+                      filter: "brightness(120%)",
+                    }}
+                    className={`border-2  border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
                   ></button>
                   <button
                     onClick={() =>
                       handleColorClick(productDetail?.colorsAvilable[2])
                     }
-                    className={`border-2 border-gray-300  bg-${productDetail?.colorsAvilable[2]}-300 rounded-full w-6 h-6 focus:outline-none`}
+                    style={{
+                      backgroundColor: `${productDetail?.colorsAvilable[2]}`,
+                      filter: "brightness(120%)",
+                    }}
+                    className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
                   ></button>
                 </div>
                 <div className="flex ml-6 items-center">
@@ -193,7 +225,7 @@ function ProductDetails() {
               </div>
               <div className="flex flex-row justify-center items-center">
                 <span className="title-font font-medium text-2xl text-gray-900 flex flex-rwo justify-center items-center">
-                  {price ? price : productDetail?.price}$
+                  {price ? price.toFixed() : productDetail?.price}$
                 </span>
 
                 <div className="border-solid ml-2 px-2 h-[38px] rounded-full border-[1px] border-gray-500 w-32 flex flex-row justify-center items-center gap-2 ">
@@ -217,12 +249,28 @@ function ProductDetails() {
                 </div>
                 <button
                   onClick={() => handleAddToCart(productDetail)}
-                  className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                  className="flex ml-auto text-white  text-sm bg-red-500 border-0 py-2 px-3 focus:outline-none hover:bg-red-600 rounded"
                 >
-                  Button
+                  Add to cart
                 </button>
-                <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                  <BsFillHeartFill />
+                <button
+                  onClick={() =>
+                    handleFavorite(
+                      productDetail,
+                      toggleFavorite === false
+                        ? "add"
+                        : toggleFavorite === true
+                        ? "remove"
+                        : null
+                    )
+                  }
+                  className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4"
+                >
+                  <BsFillHeartFill
+                    className={`${
+                      toggleFavorite === true ? "text-red-600" : "text-gray-500"
+                    }`}
+                  />
                 </button>
               </div>
             </div>

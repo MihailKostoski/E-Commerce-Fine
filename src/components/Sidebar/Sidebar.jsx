@@ -33,17 +33,6 @@ function Sidebar() {
                     T-Shirts
                   </Link>
                 </li>
-                <li
-                  className="flex w-full items-center 
-                     text-base hover:bg-gray-200"
-                >
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/woman&activewear"
-                  >
-                    Activewear
-                  </Link>
-                </li>
 
                 <li
                   className="flex w-full items-center 
@@ -51,7 +40,7 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/dresses-skirts"
+                    to="/collections/women&dresses-skirts"
                   >
                     Dresses & Skirts
                   </Link>
@@ -63,7 +52,7 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/hoodies-sweaters"
+                    to="/collections/women&hoodies-sweaters"
                   >
                     Hoodies & Sweaters
                   </Link>
@@ -104,21 +93,9 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/men-hoodies-sweaters"
+                    to="/collections/men&hoodies-sweaters"
                   >
                     Hoodies & Sweaters
-                  </Link>
-                </li>
-
-                <li
-                  className="flex w-full items-center 
-                         text-base hover:bg-gray-200"
-                >
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/men-joggers-sweatpants"
-                  >
-                    Joggers & Sweatpants
                   </Link>
                 </li>
 
@@ -242,7 +219,7 @@ function Sidebar() {
                 <li className="flex w-full items-center  text-base hover:bg-gray-200">
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/brands-tommy-hilfiger"
+                    to="/collections/Tommy Hilfiger"
                   >
                     Tommy Hilfiger
                   </Link>

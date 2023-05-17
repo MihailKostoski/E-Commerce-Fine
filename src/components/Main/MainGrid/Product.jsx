@@ -78,7 +78,7 @@ function Product({ product }) {
                       {/*body*/}
 
                       <div className="relative p-6 flex-auto">
-                        <img
+                        <LazyLoadImage
                           className="w-full h-72"
                           src={product.img}
                           alt={product.title}

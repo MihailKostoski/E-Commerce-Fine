@@ -7,7 +7,7 @@ function Main() {
   return (
     <div className="flex flex-col lg:flex-row">
       <Sidebar />
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div></div>}>
         <MainGrid />
       </Suspense>
     </div>

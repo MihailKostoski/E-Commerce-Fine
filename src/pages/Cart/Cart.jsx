@@ -15,13 +15,12 @@ import { Navbar } from "../indexComp";
 import { AiOutlineDown } from "react-icons/ai";
 import { userRequest } from "../../Url/url";
 
-import axios from "axios";
 function Cart() {
   const cartProducts = useSelector((state) => state.cart.products);
   const total = useSelector((state) => state.cart.total);
-
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const [waiting, setWaiting] = useState(false);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
 
@@ -37,11 +36,11 @@ function Cart() {
       try {
         const res = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: 500,
+          amount: total,
         });
+
         navigate("/success", {
-          stripeData: res.data,
-          products: cart,
+          state: { stripeData: res.data, products: cart },
         });
         console.log(res.data);
       } catch {}
@@ -56,7 +55,7 @@ function Cart() {
 
   const handleProductColor = (product, color) => {
     dispatch(handleColorClickRedux({ product, color }));
-    console.log("hhhhhhh", product.color);
+    console.log("color", color);
   };
   const handleProductSize = (product, event) => {
     let size = event.target.value;
@@ -73,7 +72,7 @@ function Cart() {
   return (
     <>
       <Navbar />
-      {cartProducts.length > 0 ? (
+      {cartProducts?.length > 0 ? (
         <div className="h-screen bg-gray-100 pt-20">
           <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
@@ -81,7 +80,7 @@ function Cart() {
               {cartProducts?.map((productCart) => (
                 <div
                   key={productCart.cartId}
-                  className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
+                  className="justify-between  mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
                 >
                   <img
                     src={productCart.img}
@@ -96,57 +95,44 @@ function Cart() {
                       </h2>
 
                       <p>{productCart.description}</p>
-                      <div className="flex flex-row items-center justify-center gap-2">
-                        <button
-                          onClick={() => handleRemove(productCart)}
-                          className="bg-red-300 p-1 rounded-full"
-                        >
-                          <RiDeleteBin6Line />
-                        </button>
-                        <div className="flex flex-row items-center">
-                          <span className="mr-3">Color</span>
-                          {/* <button
-                            onClick={() =>
-                              handleProductColor(productCart?.colorsAvilable[0])
-                            }
-                            className={`border-2 border-gray-900 bg-${
-                              color ? color : productCart?.color
-                            }-500 rounded-full w-6 h-6 focus:outline-none`}
-                          ></button> */}
-                          <button
-                            onClick={() =>
-                              handleProductColor(
-                                productCart,
-                                productCart?.colorsAvilable[0]
-                              )
-                            }
-                            className={`border-2 border-gray-300 bg-${productCart?.colorsAvilable[0]}-500 rounded-full w-6 h-6 focus:outline-none`}
-                          ></button>
-                          <button
-                            onClick={() =>
-                              handleProductColor(
-                                productCart,
-                                productCart?.colorsAvilable[1]
-                              )
-                            }
-                            className={`border-2 border-gray-300  bg-${productCart?.colorsAvilable[1]}-500 rounded-full w-6 h-6 focus:outline-none`}
-                          ></button>
-                          <button
-                            onClick={() =>
-                              handleProductColor(
-                                productCart,
-                                productCart?.colorsAvilable[2]
-                              )
-                            }
-                            className={`border-2 border-gray-300  bg-${productCart?.colorsAvilable[2]}-300 rounded-full w-6 h-6 focus:outline-none`}
-                          ></button>
+                      <div className="flex flex-col mt-2 gap-4 md:flex-row">
+                        <div className="flex flex-row justify-start gap-2  items-center">
+                          <div className="flex items-center border-gray-100">
+                            <span
+                              onClick={() =>
+                                handleProductQuantity(productCart, "MINUS")
+                              }
+                              className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                            >
+                              {productCart.quantity === 1 ? (
+                                <button
+                                  onClick={() => handleRemove(productCart)}
+                                >
+                                  <RiDeleteBin6Line />
+                                </button>
+                              ) : (
+                                <span>-</span>
+                              )}
+                            </span>
+                            <div>{productCart.quantity}</div>
+                            <span
+                              onClick={() =>
+                                handleProductQuantity(productCart, "PLUS")
+                              }
+                              className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                            >
+                              {" "}
+                              +{" "}
+                            </span>
+                          </div>
+
+                          <div className="text-sm font-bold">
+                            ${productCart.price.toFixed(2)}
+                          </div>
                         </div>
-                        {/* <div
-                          className={`border-2 border-gray-300 ml-1 bg-${productCart.color} rounded-full w-6 h-6 focus:outline-none`}
-                        ></div> */}
-                        <div className="flex ml-6 items-center">
+                        <div className="flex justify-start  flex-row items-center">
                           <span className="mr-3">Size</span>
-                          <div className="">
+                          <div className="relative">
                             <select
                               onChange={(event) =>
                                 handleProductSize(productCart, event)
@@ -166,44 +152,72 @@ function Cart() {
                                 {productCart?.sizeAvilable[3]}
                               </option>
                             </select>
-                            <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                            <span className="absolute  right-0 top-0 h-full w-10 text-center text-gray-500 pointer-events-none flex items-center justify-center">
                               <AiOutlineDown />
                             </span>
                           </div>
                         </div>
                       </div>
-                    </div>
-
-                    <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                      <div className="flex items-center border-gray-100">
-                        <span
-                          onClick={() =>
-                            handleProductQuantity(productCart, "MINUS")
-                          }
-                          className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
+                      <div className="flex flex-row items-center justify-start ml-2 mt-3 gap-2">
+                        <button
+                          onClick={() => handleRemove(productCart)}
+                          className="bg-red-300 p-1 rounded-full"
                         >
-                          {productCart.quantity === 1 ? (
-                            <button onClick={() => handleRemove(productCart)}>
-                              <RiDeleteBin6Line />
-                            </button>
-                          ) : (
-                            <span>-</span>
-                          )}
-                        </span>
-                        <div>{productCart.quantity}</div>
-                        <span
-                          onClick={() =>
-                            handleProductQuantity(productCart, "PLUS")
-                          }
-                          className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
-                        >
-                          {" "}
-                          +{" "}
-                        </span>
-                      </div>
-
-                      <div className="text-sm font-bold">
-                        ${productCart.price}
+                          <RiDeleteBin6Line />
+                        </button>
+                        <div className="flex flex-row items-center">
+                          <span className="mr-3">Color</span>
+                          <button
+                            className={`border-2 border-gray-900
+                  rounded-full w-6 h-6 focus:outline-none`}
+                            style={{
+                              backgroundColor: `${productCart.color}`,
+                              filter: "brightness(120%)",
+                            }}
+                          ></button>
+                          <button
+                            onClick={() =>
+                              handleProductColor(
+                                productCart,
+                                productCart?.colorsAvilable[0]
+                              )
+                            }
+                            style={{
+                              backgroundColor: `${productCart?.colorsAvilable[0]}`,
+                              filter: "brightness(120%)",
+                            }}
+                            className={`border-2 border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
+                          ></button>
+                          <button
+                            onClick={() =>
+                              handleProductColor(
+                                productCart,
+                                productCart?.colorsAvilable[1]
+                              )
+                            }
+                            style={{
+                              backgroundColor: `${productCart?.colorsAvilable[1]}`,
+                              filter: "brightness(120%)",
+                            }}
+                            className={`border-2  border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
+                          ></button>
+                          <button
+                            onClick={() =>
+                              handleProductColor(
+                                productCart,
+                                productCart?.colorsAvilable[2]
+                              )
+                            }
+                            style={{
+                              backgroundColor: `${productCart?.colorsAvilable[2]}`,
+                              filter: "brightness(120%)",
+                            }}
+                            className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
+                          ></button>
+                        </div>
+                        {/* <div
+                          className={`border-2 border-gray-300 ml-1 bg-${productCart.color} rounded-full w-6 h-6 focus:outline-none`}
+                        ></div> */}
                       </div>
                     </div>
                   </div>
@@ -214,7 +228,7 @@ function Cart() {
             <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
               <div className="mb-2 flex justify-between">
                 <p className="text-gray-700">Subtotal</p>
-                <p className="text-gray-700">$129.99</p>
+                <p className="text-gray-700">${total}</p>
               </div>
               <div className="flex justify-between">
                 <p className="text-gray-700">Shipping</p>
@@ -224,7 +238,7 @@ function Cart() {
               <div className="flex justify-between">
                 <p className="text-lg font-bold">Total</p>
                 <div className="">
-                  <p className="mb-1 text-lg font-bold">${total}</p>
+                  <p className="mb-1 text-lg font-bold">${total + 4.99}</p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>
               </div>
@@ -241,6 +255,18 @@ function Cart() {
                 <button>CHECKOUT NOW</button>
               </StripeCheckout>
             </div>
+          </div>
+        </div>
+      ) : waiting ? (
+        <div>
+          <div className="mb-1 text-base font-medium dark:text-white">
+            Default
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+            <div
+              className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500"
+              style="width: 45%"
+            ></div>
           </div>
         </div>
       ) : (

@@ -1,11 +1,32 @@
 import React, { useState } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
-
+import axios from "axios";
 function Search({ searchOpen, setSearchOpen }) {
+  const [searchValue, setSearchValue] = useState();
+  const [searchData, setSearchData] = useState();
   const handleCloseSearchMenu = () => {
     setSearchOpen((current) => !current);
   };
-  console.log("searchh");
+
+  const handleSearchValue = async (e) => {
+    const searchQuery = e.target.value.trim().toLowerCase();
+    if (searchQuery === "") {
+      setSearchData([]);
+    } else {
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/fine/products?title=${searchQuery}`
+        );
+        const filteredData = response.data.filter((product) =>
+          product.title.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+        setSearchData(filteredData);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+  console.log("searchh", searchData);
   return (
     <>
       <div
@@ -24,8 +45,9 @@ function Search({ searchOpen, setSearchOpen }) {
           </div>
           <div className="relative w-[91%]">
             <input
-              className="w-full text-start justify-center outline-0 h-9 border-solid  pl-2 border-[1.4px] border-gray-900 bg-gray-100 placeholder-gray-900"
+              className="w-full text-start justify-center outline-0 h-9  text-black border-solid  pl-2 border-[1.4px] border-gray-900 bg-gray-100 placeholder-gray-900"
               type="text"
+              onChange={(e) => handleSearchValue(e)}
               placeholder="Search for products"
             />
             <AiOutlineSearch className="absolute bottom-[9px] right-5  text-base hove:text-lg text-gray-900 " />

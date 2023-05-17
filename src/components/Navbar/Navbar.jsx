@@ -20,7 +20,7 @@ function Navbar() {
   const [hambMenuOpen, setHambMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
-
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <>
       <div className="flex sticky top-0 z-50 flex-wrap place-items-center h-[80px]">
@@ -80,12 +80,20 @@ function Navbar() {
               {/* <!-- Header Icons --> */}
 
               <div className="hidden lg:flex items-center space-x-5 items-center">
-                <a className="hover:text-gray-200 text-xl" href="#">
+                <div
+                  onClick={() => setSearchOpen(true)}
+                  className="hover:text-gray-200 text-xl"
+                  href="#"
+                >
                   <AiOutlineSearch />
-                </a>
-                <a className="hover:text-gray-200 text-xl" href="#">
+                </div>
+                <Link
+                  to="/favorite"
+                  className="hover:text-gray-200 text-xl"
+                  href="#"
+                >
                   <AiOutlineHeart />
-                </a>
+                </Link>
                 <Link
                   to="/cart"
                   className="flex items-center hover:text-gray-200 text-xl"
@@ -100,11 +108,18 @@ function Navbar() {
                 </Link>
                 {/* <!-- Sign In / Register      --> */}
                 <Link
-                  to="/login"
+                  to={user !== null ? "/login-success" : "/login"}
                   className="flex items-center hover:text-gray-200 text-xl"
                   href="#"
                 >
-                  <MdPersonOutline />
+                  {user !== null ? (
+                    <span className="text-xs font-semibold">
+                      {" "}
+                      {user.username}{" "}
+                    </span>
+                  ) : (
+                    <MdPersonOutline />
+                  )}
                 </Link>
               </div>
             </div>

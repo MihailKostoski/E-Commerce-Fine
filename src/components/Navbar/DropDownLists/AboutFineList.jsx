@@ -1,6 +1,7 @@
 import React from "react";
 
 import { AiOutlineDown } from "react-icons/ai";
+import { Link } from "react-router-dom";
 function AboutFineList({ openAboutUs, setOpenAboutUs }) {
   console.log("hii aboutfine here");
   return (
@@ -18,7 +19,7 @@ function AboutFineList({ openAboutUs, setOpenAboutUs }) {
         >
           <ul>
             <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-900">
-              About
+              <Link to="/about"> About</Link>
             </li>
             <li className="flex w-full items-center px-3 py-2 text-base hover:bg-gray-900">
               FAQ

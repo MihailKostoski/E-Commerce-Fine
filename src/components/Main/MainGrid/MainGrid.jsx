@@ -29,15 +29,26 @@ function MainGrid() {
   return (
     <div className="flex flex-col items-center mt-10">
       <section className="grid grid-rows-auto px-5 gap-5 items-center justify-center sm:grid-cols-2 sm:justify-between md:grid-cols-3 lg:pl-14 ">
-        <span className="col-span-full lg:col-start-1 lg:col-end-4">
-          Tommy Hilfiger
-        </span>
+        <div className="col-span-full flex flex-row justify-between  px-1 lg:col-start-1 lg:col-end-4">
+          <span className="bg-gray-100 px-2 text-[14px] cursor-pointer font-semibold">
+            {" "}
+            Tommy Hilfiger
+          </span>
+          <span className="bg-gray-200 px-3  cursor-pointer rounded-t-full ">
+            View All
+          </span>
+        </div>
         {productDataTommy?.slice(0, 6).map((product) => (
           <Product key={product._id} product={product} />
         ))}
-        <span className="col-span-full lg:col-start-1 lg:col-end-4">
-          Calvin Klein
-        </span>
+        <div className="col-span-full flex  flex-row justify-between px-1 lg:col-start-1 lg:col-end-4">
+          <span className="bg-gray-100 px-2 text-[14px] cursor-pointer font-semibold">
+            Calvin Klein
+          </span>
+          <span className="bg-gray-200 px-3 cursor-pointer  rounded-t-full ">
+            View All
+          </span>
+        </div>
         {productDataCalvin?.slice(0, 6).map((product) => (
           <Product key={product._id} product={product} />
         ))}

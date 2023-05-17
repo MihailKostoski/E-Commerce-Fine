@@ -40,9 +40,9 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/tops-tees"
+                to="/collections/women&t-shirt"
               >
-                Tops & Tees
+                T-Shirts
               </Link>
             </li>
 
@@ -52,7 +52,7 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/activewear"
+                to="/collections/woman&activewear"
               >
                 Activewear
               </Link>

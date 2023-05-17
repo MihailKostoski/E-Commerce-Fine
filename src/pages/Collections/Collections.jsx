@@ -3,15 +3,55 @@ import { useParams } from "react-router-dom";
 import Product from "../../components/Main/MainGrid/Product";
 import axios from "axios";
 import { Navbar, Footer, Sidebar } from "../indexComp";
+import Paginate from "./Paginate";
 function Collections() {
   const { filter } = useParams();
 
-  const [productsData, setProductsData] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+  // ...
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const [productsData, setProductsData] = useState([]);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    scrollToPosition(0);
+  };
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+      scrollToPosition(0);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(filteredProducts.length / postsPerPage)) {
+      setCurrentPage(currentPage + 1);
+      scrollToPosition(0);
+    }
+  };
+
+  const scrollToPosition = (position) => {
+    window.scrollTo({
+      top: position,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     axios
       .get(`http://localhost:5000/fine/products?category=${filter}`)
       .then((response) => {
         setProductsData(response.data);
+      });
+  }, [filter]);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/fine/products?name=${filter}`)
+      .then((response) => {
+        console.log(response.data, "res");
       });
   }, [filter]);
 
@@ -21,8 +61,17 @@ function Collections() {
       product.category.includes(category)
     );
   });
+  const pageNumbers = [];
 
-  console.log(productsData);
+  const currentPosts = filteredProducts.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+  for (let i = 1; i <= Math.ceil(filteredProducts.length / postsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  console.log(currentPosts, "c");
 
   console.log(filteredProducts, "filter");
   console.log(filter);
@@ -35,26 +84,39 @@ function Collections() {
             {filterModified[0]?.charAt(0).toUpperCase() +
               filterModified[0]?.slice(1)}
           </span>
-
-          <span> /</span>
-          <span className="font-semibold text-blue-800">
-            {filterModified[1]?.charAt(0).toUpperCase() +
-              filterModified[1]?.slice(1)}
-          </span>
+          {filterModified[1] ? (
+            <>
+              <span> /</span>
+              <span className="font-semibold text-blue-800">
+                {filterModified[1]?.charAt(0).toUpperCase() +
+                  filterModified[1]?.slice(1)}
+              </span>
+            </>
+          ) : null}
         </div>
       </div>
       <div className="flex flex-col lg:flex-row ">
         <Sidebar />
-        <div className="">
+        <div className="relative">
           <div className="flex flex-col items-center mt-10">
             <section className="grid grid-rows-auto px-5 gap-5 items-center justify-center sm:grid-cols-2 sm:justify-between md:grid-cols-3 lg:pl-14 ">
-              {filteredProducts?.map((product) => (
+              {currentPosts?.map((product) => (
                 <Product key={product._id} product={product} />
               ))}
             </section>
+            <div className="col-span-full mt-2 flex flex-row justify-center px-1 lg:col-start-1 lg:col-end-4">
+              <Paginate
+                postsPerPage={postsPerPage}
+                paginate={paginate}
+                previousPage={previousPage}
+                nextPage={nextPage}
+                pageNumbers={pageNumbers}
+              />
+            </div>
           </div>
         </div>
       </div>
+
       <Footer />
     </div>
   );
