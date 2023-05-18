@@ -21,6 +21,7 @@ function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const user = useSelector((state) => state.user.currentUser);
+  const quantityFav = useSelector((state) => state.favorite.quantityFav);
   return (
     <>
       <div className="flex sticky top-0 z-50 flex-wrap place-items-center h-[80px]">
@@ -89,10 +90,15 @@ function Navbar() {
                 </div>
                 <Link
                   to="/favorite"
-                  className="hover:text-gray-200 text-xl"
-                  href="#"
+                  className="flex items-center hover:text-gray-200 text-xl"
                 >
-                  <AiOutlineHeart />
+                  <AiOutlineHeart className="text-[22px]" />
+                  <span className="flex absolute -mt-5 ml-[14px]">
+                    <span className="animate-ping absolute inline-flex h-[14px] w-[14px] rounded-full bg-pink-400 opacity-75"></span>
+                    <span className="relative items-center justify-center inline-flex rounded-full h-[14px] w-[14px] bg-pink-500  text-white z-40 text-[9px] font-semibold">
+                      {quantityFav === 0 ? null : quantityFav}
+                    </span>
+                  </span>
                 </Link>
                 <Link
                   to="/cart"
@@ -124,26 +130,39 @@ function Navbar() {
               </div>
             </div>
             {/* <!-- Responsive navbar --> */}
-            <Link
-              to="/cart"
-              className="lg:hidden flex mr-6 items-center  text-xl"
-            >
-              <SlBasket />
-              <span className="flex absolute -mt-5 ml-4">
-                <span className="animate-ping absolute inline-flex h-[14px] w-[14px] rounded-full bg-pink-400 opacity-75"></span>
-                <span className="relative items-center justify-center inline-flex rounded-full h-[14px] w-[14px] bg-pink-500  text-white z-40 text-[9px] font-semibold">
-                  {quantity === 0 ? null : quantity}
+            <div className="flex flex-row gap-3 items-center">
+              <Link
+                to="/cart"
+                className="lg:hidden flex  items-center  text-xl"
+              >
+                <SlBasket />
+                <span className="flex absolute -mt-5 ml-4">
+                  <span className="animate-ping absolute inline-flex h-[14px] w-[14px] rounded-full bg-pink-400 opacity-75"></span>
+                  <span className="relative items-center justify-center inline-flex rounded-full h-[14px] w-[14px] bg-pink-500  text-white z-40 text-[9px] font-semibold">
+                    {quantity === 0 ? null : quantity}
+                  </span>
                 </span>
-              </span>
-            </Link>
-            <button
-              className="navbar-burger self-center mr-12 text-xl lg:hidden hover:text-2xl"
-              href="#"
-              onClick={() => setHambMenuOpen(true)}
-            >
-              <CiMenuBurger />
-            </button>
-
+              </Link>
+              <Link
+                to="/favorite"
+                className="lg:hidden hover:text-gray-200 text-xl relative"
+                href="#"
+              >
+                <AiOutlineHeart className="realtive text-[22px] " />
+                <span className=" absolute bottom-2 left-[6.9px] top-[6.3px] inline-flex h-[8px] w-[8px] rounded-full opacity-75">
+                  <span className="relative text-[9px] items-center justify-center text-pink-400 inline-flex rounded-full h-full w-full  text-white z-40 text-[9px] font-semibold">
+                    {quantityFav === 0 ? null : quantityFav}
+                  </span>
+                </span>
+              </Link>
+              <button
+                className="navbar-burger self-center mr-12 text-xl lg:hidden hover:text-2xl"
+                href="#"
+                onClick={() => setHambMenuOpen(true)}
+              >
+                <CiMenuBurger />
+              </button>
+            </div>
             <MemoizedHamburgerMenu
               hambMenuOpen={hambMenuOpen}
               setHambMenuOpen={setHambMenuOpen}

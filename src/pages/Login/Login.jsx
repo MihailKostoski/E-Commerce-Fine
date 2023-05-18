@@ -15,10 +15,10 @@ function Login() {
   const times = useSelector((state) => state.user.timestamp);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login(dispatch, { username, password });
-    navigate("/login-success");
+    await login(dispatch, { username, password });
+    await navigate("/login-success");
   };
 
   useEffect(() => {

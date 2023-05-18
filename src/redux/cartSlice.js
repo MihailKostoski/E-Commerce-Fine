@@ -3,7 +3,6 @@ import { v4 as uuidv4 } from "uuid";
 const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    favorite: [],
     products: [],
     quantity: 0,
     total: 0,
@@ -34,27 +33,6 @@ const cartSlice = createSlice({
       }
     },
 
-    addFavorite: (state, action) => {
-      const { heart, click } = action.payload;
-      const existingProductIndex = state.favorite?.findIndex(
-        (product) => product._id === heart._id
-      );
-      if (click === "add") {
-        if (existingProductIndex >= 0) {
-          alert(
-            `This item with ${heart.title} 
-             is already in your cart.`
-          );
-          return;
-        } else {
-          state.favorite.push(heart);
-        }
-      } else if (click === "remove") {
-        const index = state.favorite.indexOf(heart);
-
-        state.favorite.splice(index, 1);
-      }
-    },
     handleQuantityClickRedux: (state, action) => {
       const { product, click } = action.payload;
       const productIndex = state.products?.findIndex((pro) => {
@@ -69,6 +47,7 @@ const cartSlice = createSlice({
           quantity: quant + 1,
           price: prodPric / quant + prodPric,
         };
+        state.total += prodPric;
       } else if (quant > 1 && click === "MINUS") {
         let minusPrice = prodPric / quant - prodPric;
         let absolutePrice = Math.abs(minusPrice);
@@ -78,6 +57,7 @@ const cartSlice = createSlice({
           quantity: quant - 1,
           price: absolutePrice,
         };
+        state.total = absolutePrice;
       }
     },
     handleColorClickRedux: (state, action) => {
@@ -103,14 +83,23 @@ const cartSlice = createSlice({
       };
     },
     removeFromCart: (state, action) => {
+      const productIndex = state.products?.findIndex(
+        (product) => product._id === action.payload._id
+      );
+
+      const quant = state.products[productIndex].quantity;
+      const prodPric = state.products[productIndex].price;
+      let minusPrice = prodPric / quant - prodPric;
+      let absolutePrice = Math.abs(minusPrice);
       const index = state.products.indexOf(action.payload);
       state.quantity -= 1;
       state.products.splice(index, 1);
+      state.total = absolutePrice;
     },
 
-    // clearCart: (state, action) => {
-    //   state.products;
-    // },
+    removeCart: (state) => {
+      (state.products = []), (state.total = 0), (state.quantity = 0);
+    },
   },
 });
 
@@ -121,5 +110,6 @@ export const {
   addFavorite,
   handleColorClickRedux,
   handleSizeClickRedux,
+  removeCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

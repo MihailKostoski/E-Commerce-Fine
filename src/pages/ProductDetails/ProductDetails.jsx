@@ -13,29 +13,26 @@ import {
 
 import { MemoizedStar } from "./Star";
 import { useSelector } from "react-redux";
-import { addProduct, addFavorite } from "../../redux/cartSlice";
+import { addProduct } from "../../redux/cartSlice";
+import { addFavorite } from "../../redux/favoriteSlice";
 import { useDispatch } from "react-redux";
 import { Navbar } from "../indexComp";
 
 function ProductDetails() {
   const cart = useSelector((state) => state.cart.products);
 
-  const favor = useSelector((state) => state.cart.favorite);
+  const favor = useSelector((state) => state.favorite.favorite);
   console.log(cart, "cart");
   console.log(favor, "favor");
 
   const [rate, setRate] = useState(3);
   const { id } = useParams();
-  // const [favorite, setFavorite] = useState();
   const [quantity, setQuantity] = useState(1);
   const [toggleFavorite, setToggleFavorite] = useState(false);
   const [productDetail, setProductDetail] = useState();
-
   const [price, setPrice] = useState();
-
   const [color, setColor] = useState();
-
-  const [size, setSize] = useState("S");
+  const [size, setSize] = useState();
   console.log(productDetail, "detail");
 
   useEffect(() => {
@@ -60,30 +57,24 @@ function ProductDetails() {
 
   console.log(toggleFavorite, "toggle");
   const handleAddToCart = (product) => {
-    if (color || price || size === undefined) {
+    if (color === undefined || price === undefined || size === undefined) {
       setColor(productDetail?.color);
-
       setPrice(productDetail?.price);
       setSize(productDetail?.size);
-      dispatch(
-        addProduct({
-          ...product,
-          quantity,
-          color,
-          price,
-          size,
-        })
-      );
-    } else {
-      dispatch(
-        addProduct({
-          ...product,
-        })
-      );
     }
+
+    dispatch(
+      addProduct({
+        ...product,
+        quantity,
+        color: color || productDetail?.color,
+        price: price || productDetail?.price,
+        size: size || productDetail?.size,
+      })
+    );
+
     setQuantity(1);
   };
-
   const handleColorClick = useMemo(
     () => (color) => {
       setColor(color);
@@ -197,8 +188,11 @@ function ProductDetails() {
                     className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
                   ></button>
                 </div>
-                <div className="flex ml-6 items-center">
-                  <span className="mr-3">Size</span>
+                <div className="flex flex-row gap-2 ml-6 items-center">
+                  <span className="">Size</span>
+                  <span className="bg-gray-200 px-1 ">
+                    {productDetail?.size}
+                  </span>
                   <div className="relative">
                     <select
                       onChange={(event) => handleSizeClick(event.target.value)}

@@ -1,42 +1,64 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { userRequest } from "../../Url/url";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { addOrder } from "../../redux/orderSlice";
+import { useDispatch } from "react-redux";
+import { removeCart } from "../../redux/cartSlice";
+import PageNotFound from "../PageNotFound/PageNotFound";
 const SuccessOrder = () => {
   const location = useLocation();
-
   const stateLoc = location?.state;
-  console.log(location.state);
   const dataStripe = stateLoc?.stripeData;
   const cart = stateLoc?.products;
   const currentUser = useSelector((state) => state?.user?.currentUser);
   const [orderId, setOrderId] = useState(null);
-  console.log(userRequest);
+  const order = useSelector((state) => state.order.order);
+  const dispatch = useDispatch();
+  const [orderResponse, setOrderResponse] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     const createOrder = async () => {
-      const res = await userRequest.post("/orders", {
-        userId: currentUser?._id,
-        products: cart.products?.map((item) => ({
-          productId: item._id,
-          quantity: item._quantity,
-        })),
-        amount: cart?.total,
-        address: dataStripe?.billing_details.address,
-      });
+      if (order !== false) {
+        try {
+          const response = await userRequest.post("/orders", {
+            userId: currentUser?._id,
+            products: cart.products?.map((item) => ({
+              productId: item._id,
+              quantity: item._quantity,
+            })),
+            amount: cart?.total,
+            address: dataStripe?.billing_details.address,
+          });
+          setOrderResponse(response.data);
+          dispatch(addOrder(false));
+          dispatch(removeCart());
+        } catch (error) {
+          console.error("Error creating order:", error);
+          navigate("/cancel");
+        }
+      } else {
+        console.log("Already ordered");
+      }
     };
-    dataStripe && createOrder();
-  }, [cart, dataStripe, currentUser]);
 
-  useEffect(() => {
     const getOrder = async () => {
-      const res = await userRequest.get("/orders");
-      setOrderId(res.data);
+      try {
+        const response = await userRequest.get("/orders");
+        setOrderId(response.data);
+      } catch (error) {
+        console.error("Error getting order:", error);
+      }
     };
+
+    createOrder();
     getOrder();
-  }, []);
-  console.log(orderId, "order");
+  }, []); // Empty dependency array to run the effect only once
+
+  console.log(orderId, "ord");
+  console.log(order, "order");
+  console.log(orderResponse, "orderRes");
   return (
     <>
       {stateLoc ? (
@@ -71,15 +93,7 @@ const SuccessOrder = () => {
           </div>
         </div>
       ) : (
-        <div className="h-screen bg-gray-100 flex items-center justify-center">
-          <p className="text-center p-1 bg-gray-200 rounded-lg ">
-            You don't have any payment.
-          </p>
-
-          <button className="bg-blue-200 p-1 ml-2 rounded-lg">
-            <Link to="/"> Go home!</Link>
-          </button>
-        </div>
+        <PageNotFound />
       )}
     </>
   );

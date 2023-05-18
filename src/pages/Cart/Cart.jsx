@@ -8,15 +8,18 @@ import {
   handleColorClickRedux,
   handleSizeClickRedux,
 } from "../../redux/cartSlice";
+import { addOrder } from "../../redux/orderSlice";
 import { useDispatch } from "react-redux";
 import { BsCartXFill } from "react-icons/bs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Navbar } from "../indexComp";
 import { AiOutlineDown } from "react-icons/ai";
 import { userRequest } from "../../Url/url";
+import { current } from "@reduxjs/toolkit";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.cart.products);
+  const user = useSelector((state) => state.user.currentUser);
   const total = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -36,7 +39,7 @@ function Cart() {
       try {
         const res = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: total,
+          amount: total * 100,
         });
 
         navigate("/success", {
@@ -45,6 +48,7 @@ function Cart() {
         console.log(res.data);
       } catch {}
     };
+    dispatch(addOrder(true));
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate]);
 
@@ -68,6 +72,7 @@ function Cart() {
   };
 
   console.log(cartProducts, "from cart");
+  console.log(total);
 
   return (
     <>
@@ -79,11 +84,11 @@ function Cart() {
             <div className="rounded-lg md:w-2/3">
               {cartProducts?.map((productCart) => (
                 <div
-                  key={productCart.cartId}
+                  key={productCart?.cartId}
                   className="justify-between  mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
                 >
                   <img
-                    src={productCart.img}
+                    src={productCart?.img}
                     alt="product-image"
                     className="w-[200px] h-[220px] rounded-lg sm:w-40"
                   />
@@ -91,10 +96,10 @@ function Cart() {
                   <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                     <div className="mt-5 sm:mt-0">
                       <h2 className="text-lg font-bold text-gray-900">
-                        {productCart.title}
+                        {productCart?.title}
                       </h2>
 
-                      <p>{productCart.description}</p>
+                      <p>{productCart?.description}</p>
                       <div className="flex flex-col mt-2 gap-4 md:flex-row">
                         <div className="flex flex-row justify-start gap-2  items-center">
                           <div className="flex items-center border-gray-100">
@@ -104,7 +109,7 @@ function Cart() {
                               }
                               className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50"
                             >
-                              {productCart.quantity === 1 ? (
+                              {productCart?.quantity === 1 ? (
                                 <button
                                   onClick={() => handleRemove(productCart)}
                                 >
@@ -114,7 +119,7 @@ function Cart() {
                                 <span>-</span>
                               )}
                             </span>
-                            <div>{productCart.quantity}</div>
+                            <div>{productCart?.quantity}</div>
                             <span
                               onClick={() =>
                                 handleProductQuantity(productCart, "PLUS")
@@ -127,11 +132,14 @@ function Cart() {
                           </div>
 
                           <div className="text-sm font-bold">
-                            ${productCart.price.toFixed(2)}
+                            ${productCart?.price?.toFixed(2)}
                           </div>
                         </div>
-                        <div className="flex justify-start  flex-row items-center">
-                          <span className="mr-3">Size</span>
+                        <div className="flex justify-start  flex-row gap-3 items-center">
+                          <span className="">Size</span>
+                          <span className="bg-gray-200 px-1 ">
+                            {productCart?.size}
+                          </span>
                           <div className="relative">
                             <select
                               onChange={(event) =>
@@ -171,7 +179,7 @@ function Cart() {
                             className={`border-2 border-gray-900
                   rounded-full w-6 h-6 focus:outline-none`}
                             style={{
-                              backgroundColor: `${productCart.color}`,
+                              backgroundColor: `${productCart?.color}`,
                               filter: "brightness(120%)",
                             }}
                           ></button>
@@ -226,34 +234,34 @@ function Cart() {
             </div>
 
             <div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
-              <div className="mb-2 flex justify-between">
-                <p className="text-gray-700">Subtotal</p>
-                <p className="text-gray-700">${total}</p>
-              </div>
-              <div className="flex justify-between">
-                <p className="text-gray-700">Shipping</p>
-                <p className="text-gray-700">$4.99</p>
-              </div>
               <hr className="my-4" />
               <div className="flex justify-between">
                 <p className="text-lg font-bold">Total</p>
                 <div className="">
-                  <p className="mb-1 text-lg font-bold">${total + 4.99}</p>
+                  <p className="mb-1 text-lg font-bold">${total?.toFixed(2)}</p>
                   <p className="text-sm text-gray-700">including VAT</p>
                 </div>
               </div>
-              <StripeCheckout
-                name="Fine"
-                // image=""
-                billingAddress
-                shippingAddress
-                description={`Your total is $${cart.total}`}
-                amount={cart.total * 100}
-                token={onToken}
-                stripeKey={KEY}
-              >
-                <button>CHECKOUT NOW</button>
-              </StripeCheckout>
+              {user !== null ? (
+                <StripeCheckout
+                  name="Fine"
+                  // image=""
+                  billingAddress
+                  shippingAddress
+                  description={`Your total is $${cart?.total?.toFixed(2)}`}
+                  amount={cart?.total * 100}
+                  token={onToken}
+                  stripeKey={KEY}
+                >
+                  <button className="bg-gray-400 px-1 rounded-sm">
+                    CHECKOUT NOW
+                  </button>
+                </StripeCheckout>
+              ) : (
+                <button className="bg-gray-400 px-1 rounded-sm">
+                  <Link to="/login">Login: CHECKOUT NOW</Link>
+                </button>
+              )}
             </div>
           </div>
         </div>

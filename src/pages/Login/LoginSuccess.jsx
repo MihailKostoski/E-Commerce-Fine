@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Navbar } from "../indexComp";
 import { logout } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 function LoginSuccess() {
   const userSucces = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
@@ -32,6 +32,9 @@ function LoginSuccess() {
             className="bg-blue-400 px-2 py-1 rounded-sm mb-1"
           >
             Log out
+          </button>
+          <button className="bg-blue-400 px-2 py-1 rounded-sm mb-1">
+            <Link to="/cart">Go to cart</Link>
           </button>
         </div>
       </div>

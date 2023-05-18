@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import { items, formatResult } from "./SearchFunctionality";
 import axios from "axios";
+
 function Search({ searchOpen, setSearchOpen }) {
   const [searchValue, setSearchValue] = useState();
   const [searchData, setSearchData] = useState();
@@ -8,25 +11,32 @@ function Search({ searchOpen, setSearchOpen }) {
     setSearchOpen((current) => !current);
   };
 
-  const handleSearchValue = async (e) => {
-    const searchQuery = e.target.value.trim().toLowerCase();
-    if (searchQuery === "") {
+  const handleOnSearch = async (string) => {
+    if (string === "") {
       setSearchData([]);
     } else {
       try {
         const response = await axios.get(
-          `http://localhost:5000/fine/products?title=${searchQuery}`
+          `http://localhost:5000/fine/products?title=${string}`
         );
         const filteredData = response.data.filter((product) =>
-          product.title.toLowerCase().includes(searchQuery.toLowerCase())
+          product.title.toLowerCase().includes(string.toLowerCase())
         );
-        setSearchData(filteredData);
+        const transformedData = filteredData.map((item) => ({
+          id: item._id,
+          name: item.title,
+          brand: item.name,
+        }));
+        setSearchData([...transformedData]);
       } catch (error) {
         console.error(error);
       }
     }
   };
+  const merged = items.concat(searchData);
   console.log("searchh", searchData);
+  console.log(merged, "me");
+
   return (
     <>
       <div
@@ -44,13 +54,21 @@ function Search({ searchOpen, setSearchOpen }) {
             <span className="sr-only">Close search menu</span>
           </div>
           <div className="relative w-[91%]">
-            <input
-              className="w-full text-start justify-center outline-0 h-9  text-black border-solid  pl-2 border-[1.4px] border-gray-900 bg-gray-100 placeholder-gray-900"
-              type="text"
-              onChange={(e) => handleSearchValue(e)}
-              placeholder="Search for products"
-            />
-            <AiOutlineSearch className="absolute bottom-[9px] right-5  text-base hove:text-lg text-gray-900 " />
+            <div style={{ width: 230 }}>
+              <ReactSearchAutocomplete
+                items={merged}
+                inputDebounce={300}
+                onSearch={handleOnSearch}
+                // onHover={handleOnHover}
+                // onSelect={handleOnSelect}
+                // onFocus={handleOnFocus}
+                autoFocus
+                formatResult={formatResult}
+                styling={{
+                  height: "40px",
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>

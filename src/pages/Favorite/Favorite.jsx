@@ -4,10 +4,12 @@ import { useSelector } from "react-redux";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { BsFillHeartFill } from "react-icons/bs";
-import { addFavorite } from "../../redux/cartSlice";
+import { addFavorite } from "../../redux/favoriteSlice";
 import { useDispatch } from "react-redux";
+
+import Navbar from "../../components/Navbar/Navbar";
 function Favorite() {
-  const favoriteProducts = useSelector((state) => state.cart.favorite);
+  const favoriteProducts = useSelector((state) => state.favorite.favorite);
 
   const dispatch = useDispatch();
   const handleFavorite = (heart, click) => {
@@ -17,6 +19,7 @@ function Favorite() {
   console.log(favoriteProducts, "favor");
   return (
     <>
+      <Navbar />
       {favoriteProducts?.length > 0 ? (
         <div>
           <div className="h-screen bg-gray-100 pt-20">
