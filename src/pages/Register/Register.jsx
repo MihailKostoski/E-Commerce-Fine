@@ -1,15 +1,17 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { Navbar } from "../indexComp";
 import logo from "../../assets/Images/logo.png";
+import { publicRequest } from "../../Url/url";
+import { useSelector } from "react-redux";
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const handelSubmit = (e) => {
+  const user = useSelector((state) => state.user.currentUser);
+  const handelSubmit = async (e) => {
     e.preventDefault();
     if (username.length > 4 && password.length > 4 && email.length > 8) {
       const data = {
@@ -18,8 +20,9 @@ function Register() {
         email,
       };
       console.log(data);
-      axios
-        .post("http://localhost:5000/fine/auth/register", data)
+
+      await publicRequest
+        .post("fine/auth/register", data)
         .then((response) => {
           console.log("Data successfully sent to the database:", response.data);
           navigate("/register-success", {
@@ -95,7 +98,7 @@ function Register() {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?
                   <Link
-                    to="/login"
+                    to={user !== null ? "/login-success" : "/login"}
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Login here

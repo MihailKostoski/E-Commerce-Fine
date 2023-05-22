@@ -3,8 +3,7 @@ import { AiOutlineDown } from "react-icons/ai";
 import womenDropDown from "../../../assets/Images/womenDropDown.jpg";
 import menDropDown from "../../../assets/Images/menDropDown.jpg";
 import { Link } from "react-router-dom";
-function ShopNavList({ openShop, setOpenShop }) {
-  console.log("hi shopnavlist here");
+function ShopNavList({ openShop }) {
   return (
     <>
       <div className="relative h-full flex items-center">
@@ -52,19 +51,7 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/woman&activewear"
-              >
-                Activewear
-              </Link>
-            </li>
-
-            <li
-              className="flex w-full items-center 
-                        text-base hover:bg-gray-900"
-            >
-              <Link
-                className="px-3 py-2  h-full w-full"
-                to="/collections/dresses-skirts"
+                to="/collections/women&dresses-skirts"
               >
                 Dresses & Skirts
               </Link>
@@ -76,7 +63,7 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/hoodies-sweaters"
+                to="/collections/women&hoodies-sweaters"
               >
                 Hoodies & Sweaters
               </Link>
@@ -103,7 +90,7 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/men-jackets"
+                to="/collections/men&jackets"
               >
                 Jackets
               </Link>
@@ -115,7 +102,7 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/men-hoodies-sweaters"
+                to="/collections/men&hoodies-sweaters"
               >
                 Hoodies & Sweaters
               </Link>
@@ -127,33 +114,9 @@ function ShopNavList({ openShop, setOpenShop }) {
             >
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/men-joggers-sweatpants"
+                to="/collections/men&t-shirt"
               >
-                Joggers & Sweatpants
-              </Link>
-            </li>
-
-            <li
-              className="flex w-full items-center 
-                        text-base hover:bg-gray-900"
-            >
-              <Link
-                className="px-3 py-2  h-full w-full"
-                to="/collections/men-pants"
-              >
-                Pants
-              </Link>
-            </li>
-
-            <li
-              className="flex w-full items-center 
-                        text-base hover:bg-gray-900"
-            >
-              <Link
-                className="px-3 py-2  h-full w-full"
-                to="/collections/men-tops-tees"
-              >
-                Tops & Tees
+                T-shirts
               </Link>
             </li>
           </ul>

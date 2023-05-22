@@ -1,8 +1,7 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import { Link } from "react-router-dom";
-function BrandsList({ openBrands, setOpenBrands }) {
-  console.log("hi brands here");
+function BrandsList({ openBrands }) {
   return (
     <>
       <div className="relative h-full flex items-center">
@@ -20,7 +19,7 @@ function BrandsList({ openBrands, setOpenBrands }) {
             <li className="flex w-full items-center  text-base hover:bg-gray-900">
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/brands-tommy-hilfiger"
+                to="/collections/Tommy Hilfiger"
               >
                 Tommy Hilfiger
               </Link>
@@ -29,7 +28,7 @@ function BrandsList({ openBrands, setOpenBrands }) {
             <li className="flex w-full items-center  text-base hover:bg-gray-900">
               <Link
                 className="px-3 py-2  h-full w-full"
-                to="/collections/brands-calvin-klein"
+                to="/collections/Calvin Klein"
               >
                 Calvin Klein
               </Link>
@@ -37,26 +36,8 @@ function BrandsList({ openBrands, setOpenBrands }) {
 
             <li className="flex w-full items-center  text-base hover:bg-gray-900">
               <Link
-                className="px-3 py-2  h-full w-full"
-                to="/collections/brands-emporio-armani"
-              >
-                Emporio Armani
-              </Link>
-            </li>
-
-            <li className="flex w-full items-center  text-base hover:bg-gray-900">
-              <Link
-                className="px-3 py-2  h-full w-full"
-                to="/collections/brands-guess"
-              >
-                Guess
-              </Link>
-            </li>
-
-            <li className="flex w-full items-center  text-base hover:bg-gray-900">
-              <Link
                 className="px-3 py-2   h-full w-full"
-                to="/collections/brands-michael-kors"
+                to="/collections/Michael Kors"
               >
                 Michael Kors
               </Link>
@@ -65,7 +46,7 @@ function BrandsList({ openBrands, setOpenBrands }) {
             <li className="flex w-full items-center  text-base hover:bg-gray-900">
               <Link
                 className="px-3 py-2 h-full w-full"
-                to="/collections/brands-hugo-boss"
+                to="/collections/Hugo Boss"
               >
                 Hugo Boss
               </Link>

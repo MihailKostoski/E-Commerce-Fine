@@ -29,7 +29,7 @@ const cartSlice = createSlice({
         };
         state.quantity += 1;
         state.products.push(newProduct);
-        state.total += newProduct.price * newProduct.quantity;
+        state.total += newProduct.price;
       }
     },
 
@@ -38,26 +38,29 @@ const cartSlice = createSlice({
       const productIndex = state.products?.findIndex((pro) => {
         return pro.cartId === product.cartId;
       });
-      const quant = state.products[productIndex].quantity;
-      const prodPric = state.products[productIndex].price;
 
-      if (click === "PLUS") {
-        state.products[productIndex] = {
-          ...product,
-          quantity: quant + 1,
-          price: prodPric / quant + prodPric,
-        };
-        state.total += prodPric;
-      } else if (quant > 1 && click === "MINUS") {
-        let minusPrice = prodPric / quant - prodPric;
-        let absolutePrice = Math.abs(minusPrice);
+      if (productIndex !== -1) {
+        const quant = state?.products[productIndex].quantity;
+        const prodPric = state?.products[productIndex].price;
 
-        state.products[productIndex] = {
-          ...product,
-          quantity: quant - 1,
-          price: absolutePrice,
-        };
-        state.total = absolutePrice;
+        if (click === "PLUS") {
+          state.products[productIndex] = {
+            ...product,
+            quantity: quant + 1,
+            price: prodPric / quant + prodPric,
+          };
+          state.total += prodPric / quant;
+        } else if (quant > 1 && click === "MINUS") {
+          let minusPrice = prodPric / quant - prodPric;
+          let absolutePrice = Math.abs(minusPrice);
+
+          state.products[productIndex] = {
+            ...product,
+            quantity: quant - 1,
+            price: absolutePrice,
+          };
+          state.total -= prodPric / quant;
+        }
       }
     },
     handleColorClickRedux: (state, action) => {
@@ -82,19 +85,14 @@ const cartSlice = createSlice({
         size: size,
       };
     },
-    removeFromCart: (state, action) => {
+    removeFromCartOnMinus: (state, action) => {
       const productIndex = state.products?.findIndex(
-        (product) => product._id === action.payload._id
+        (product) => product.cartId === action.payload.cartId
       );
-
-      const quant = state.products[productIndex].quantity;
-      const prodPric = state.products[productIndex].price;
-      let minusPrice = prodPric / quant - prodPric;
-      let absolutePrice = Math.abs(minusPrice);
-      const index = state.products.indexOf(action.payload);
+      const productsPrice = state.products[productIndex].price;
+      state.products.splice(productIndex, 1);
       state.quantity -= 1;
-      state.products.splice(index, 1);
-      state.total = absolutePrice;
+      state.total -= productsPrice;
     },
 
     removeCart: (state) => {
@@ -106,7 +104,7 @@ const cartSlice = createSlice({
 export const {
   addProduct,
   handleQuantityClickRedux,
-  removeFromCart,
+  removeFromCartOnMinus,
   addFavorite,
   handleColorClickRedux,
   handleSizeClickRedux,

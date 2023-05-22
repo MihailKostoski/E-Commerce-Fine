@@ -16,7 +16,6 @@ function Favorite() {
     dispatch(addFavorite({ heart, click }));
   };
 
-  console.log(favoriteProducts, "favor");
   return (
     <>
       <Navbar />

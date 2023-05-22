@@ -2,8 +2,10 @@ import React from "react";
 import { BsTelephone } from "react-icons/bs";
 import { MdOutlineMail } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import logo from "../../assets/Images/logo.png";
 function Footer() {
+  const user = useSelector((state) => state.user.currentUser);
   return (
     <>
       <footer className="bg-gray-600 dark:bg-gray-900 mt-10">
@@ -58,7 +60,10 @@ function Footer() {
                   </li>
 
                   <li>
-                    <Link to="/login" className="hover:underline">
+                    <Link
+                      to={user !== null ? "/login-success" : "/login"}
+                      className="hover:underline"
+                    >
                       Sign In/ Sign up
                     </Link>
                   </li>

@@ -2,8 +2,7 @@ import React from "react";
 
 import { AiOutlineDown } from "react-icons/ai";
 import { Link } from "react-router-dom";
-function AboutFineList({ openAboutUs, setOpenAboutUs }) {
-  console.log("hii aboutfine here");
+function AboutFineList({ openAboutUs }) {
   return (
     <>
       <div className="relative h-full flex items-center">

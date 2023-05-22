@@ -8,6 +8,7 @@ function Sidebar() {
           <ul className="space-y-2 font-medium">
             <li>
               <ul className="mt-2">
+                <hr className="my-2" />
                 <h3
                   className="flex w-full items-center 
                          text-lg font-bold "
@@ -57,7 +58,44 @@ function Sidebar() {
                     Hoodies & Sweaters
                   </Link>
                 </li>
+                <h3
+                  className="flex w-full items-center 
+                         text-md font-bold"
+                >
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/women&accessories"
+                  >
+                    Accessories
+                  </Link>
+                </h3>
+
+                <li
+                  className="flex w-full items-center 
+           text-base hover:bg-gray-200"
+                >
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/bags&women&accessories"
+                  >
+                    Bags
+                  </Link>
+                </li>
+
+                <li
+                  className="flex w-full items-center 
+           text-base hover:bg-gray-200"
+                >
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/sunglasses&women&accessories"
+                  >
+                    Sunglasses
+                  </Link>
+                </li>
               </ul>
+
+              <hr className="my-2" />
             </li>
             <li>
               <ul className="mt-2">
@@ -105,50 +143,32 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/men-pants"
-                  >
-                    Pants
-                  </Link>
-                </li>
-
-                <li
-                  className="flex w-full items-center 
-                         text-base hover:bg-gray-200"
-                >
-                  <Link
-                    className="h-full w-full px-3 py-2"
                     to="/collections/men&t-shirt"
                   >
                     T-Shirts
                   </Link>
                 </li>
-              </ul>
-            </li>
-            <li>
-              <ul>
                 <h3
                   className="flex w-full items-center 
-                         text-lg font-bold"
+                         text-md font-bold"
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/accessories"
+                    to="/collections/men&accessories"
                   >
                     Accessories
                   </Link>
                 </h3>
 
-                <hr className="my-2" />
-
                 <li
                   className="flex w-full items-center 
            text-base hover:bg-gray-200"
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/accessories-jewelry"
+                    to="/collections/watches&men&accessories"
                   >
-                    Jewelry
+                    Watches
                   </Link>
                 </li>
 
@@ -158,59 +178,22 @@ function Sidebar() {
                 >
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/accessories-scarves"
-                  >
-                    Scarves
-                  </Link>
-                </li>
-
-                <li
-                  className="flex w-full items-center 
-           text-base hover:bg-gray-200"
-                >
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/accessories-sunglasses"
+                    to="/collections/sunglasses&men&accessories"
                   >
                     Sunglasses
                   </Link>
                 </li>
-
-                <li
-                  className="flex w-full items-center 
-           text-base hover:bg-gray-200"
-                >
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/accessories-hats-belts"
-                  >
-                    Hats & Belts
-                  </Link>
-                </li>
-
-                <li
-                  className="flex w-full items-center 
-           text-base hover:bg-gray-200"
-                >
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/accessories-bags"
-                  >
-                    Bags
-                  </Link>
-                </li>
               </ul>
+              <hr className="my-2" />
             </li>
+            <li></li>
             <li>
               <ul>
                 <h3
                   className="cursor-pointer flex w-full items-center 
                          text-lg font-bold "
                 >
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/brands"
-                  >
+                  <Link className="h-full w-full px-3 py-2" to="/">
                     Brands
                   </Link>
                 </h3>
@@ -228,7 +211,7 @@ function Sidebar() {
                 <li className="flex w-full items-center  text-base hover:bg-gray-200">
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/brands-calvin-klein"
+                    to="/collections/Calvin Klein"
                   >
                     Calvin Klein
                   </Link>
@@ -236,26 +219,8 @@ function Sidebar() {
 
                 <li className="flex w-full items-center  text-base hover:bg-gray-200">
                   <Link
-                    className="h-full w-full  px-3 py-2"
-                    to="/collections/brands-emporio-armani"
-                  >
-                    Emporio Armani
-                  </Link>
-                </li>
-
-                <li className="flex w-full items-center  text-base hover:bg-gray-200">
-                  <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/brands-guess"
-                  >
-                    Guess
-                  </Link>
-                </li>
-
-                <li className="flex w-full items-center  text-base hover:bg-gray-200">
-                  <Link
-                    className="h-full w-full px-3 py-2"
-                    to="/collections/brands-michael-kors"
+                    to="/collections/Michael Kors"
                   >
                     Michael Kors
                   </Link>
@@ -264,9 +229,17 @@ function Sidebar() {
                 <li className="flex w-full items-center  text-base hover:bg-gray-200">
                   <Link
                     className="h-full w-full px-3 py-2"
-                    to="/collections/brands-hugo-boss"
+                    to="/collections/Hugo Boss"
                   >
                     Hugo Boss
+                  </Link>
+                </li>
+                <li className="flex w-full items-center  text-base hover:bg-gray-200">
+                  <Link
+                    className="h-full w-full px-3 py-2"
+                    to="/collections/Guess"
+                  >
+                    Guess
                   </Link>
                 </li>
               </ul>

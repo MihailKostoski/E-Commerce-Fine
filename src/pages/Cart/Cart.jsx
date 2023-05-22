@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout";
 import {
   handleQuantityClickRedux,
-  removeFromCart,
+  removeFromCartOnMinus,
   handleColorClickRedux,
   handleSizeClickRedux,
 } from "../../redux/cartSlice";
@@ -15,7 +15,6 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Navbar } from "../indexComp";
 import { AiOutlineDown } from "react-icons/ai";
 import { userRequest } from "../../Url/url";
-import { current } from "@reduxjs/toolkit";
 
 function Cart() {
   const cartProducts = useSelector((state) => state.cart.products);
@@ -26,18 +25,16 @@ function Cart() {
   const [waiting, setWaiting] = useState(false);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
+  const KEY = import.meta.env.VITE_STRIPE_KEY;
 
   const onToken = (token) => {
     setStripeToken(token);
   };
 
-  const KEY =
-    "pk_test_51N6wrtBpKW3TjKXnezUjMy3lByr0IqfvNLHAEm1A1KELLqbTgIs4rRfYdTryZj459YfM82YMG5BZRSXqlhE5TZoZ00l70rYSgs";
-
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post("/checkout/payment", {
+        const res = await userRequest.post("fine/checkout/payment", {
           tokenId: stripeToken.id,
           amount: total * 100,
         });
@@ -45,34 +42,32 @@ function Cart() {
         navigate("/success", {
           state: { stripeData: res.data, products: cart },
         });
-        console.log(res.data);
-      } catch {}
+      } catch (error) {
+        console.error("Error making payment:", error);
+      }
     };
-    dispatch(addOrder(true));
-    stripeToken && makeRequest();
-  }, [stripeToken, cart.total, navigate]);
 
+    const timeoutId = setTimeout(() => {
+      dispatch(addOrder(true));
+      stripeToken && makeRequest();
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [stripeToken, total, navigate, dispatch]);
   const handleProductQuantity = (product, click) => {
     dispatch(handleQuantityClickRedux({ product, click }));
-    console.log("hhhhhhh", product.price, click);
   };
 
   const handleProductColor = (product, color) => {
     dispatch(handleColorClickRedux({ product, color }));
-    console.log("color", color);
   };
   const handleProductSize = (product, event) => {
     let size = event.target.value;
     dispatch(handleSizeClickRedux({ product, size }));
-
-    console.log("hhhhhhh", product.size);
   };
   const handleRemove = (product) => {
-    dispatch(removeFromCart(product));
+    dispatch(removeFromCartOnMinus(product));
   };
-
-  console.log(cartProducts, "from cart");
-  console.log(total);
 
   return (
     <>
@@ -126,8 +121,7 @@ function Cart() {
                               }
                               className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50"
                             >
-                              {" "}
-                              +{" "}
+                              +
                             </span>
                           </div>
 
@@ -140,30 +134,40 @@ function Cart() {
                           <span className="bg-gray-200 px-1 ">
                             {productCart?.size}
                           </span>
-                          <div className="relative">
-                            <select
-                              onChange={(event) =>
-                                handleProductSize(productCart, event)
-                              }
-                              className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10"
-                            >
-                              <option value={`${productCart?.sizeAvilable[0]}`}>
-                                {productCart?.sizeAvilable[0]}
-                              </option>
-                              <option value={`${productCart?.sizeAvilable[1]}`}>
-                                {productCart?.sizeAvilable[1]}
-                              </option>
-                              <option value={`${productCart?.sizeAvilable[2]}`}>
-                                {productCart?.sizeAvilable[2]}
-                              </option>
-                              <option value={`${productCart?.sizeAvilable[3]}`}>
-                                {productCart?.sizeAvilable[3]}
-                              </option>
-                            </select>
-                            <span className="absolute  right-0 top-0 h-full w-10 text-center text-gray-500 pointer-events-none flex items-center justify-center">
-                              <AiOutlineDown />
-                            </span>
-                          </div>
+                          {productCart?.size !== "one size" ? (
+                            <div className="relative">
+                              <select
+                                onChange={(event) =>
+                                  handleProductSize(productCart, event)
+                                }
+                                className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10"
+                              >
+                                <option
+                                  value={`${productCart?.sizeAvilable[0]}`}
+                                >
+                                  {productCart?.sizeAvilable[0]}
+                                </option>
+                                <option
+                                  value={`${productCart?.sizeAvilable[1]}`}
+                                >
+                                  {productCart?.sizeAvilable[1]}
+                                </option>
+                                <option
+                                  value={`${productCart?.sizeAvilable[2]}`}
+                                >
+                                  {productCart?.sizeAvilable[2]}
+                                </option>
+                                <option
+                                  value={`${productCart?.sizeAvilable[3]}`}
+                                >
+                                  {productCart?.sizeAvilable[3]}
+                                </option>
+                              </select>
+                              <span className="absolute  right-0 top-0 h-full w-10 text-center text-gray-500 pointer-events-none flex items-center justify-center">
+                                <AiOutlineDown />
+                              </span>
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                       <div className="flex flex-row items-center justify-start ml-2 mt-3 gap-2">
@@ -183,49 +187,50 @@ function Cart() {
                               filter: "brightness(120%)",
                             }}
                           ></button>
-                          <button
-                            onClick={() =>
-                              handleProductColor(
-                                productCart,
-                                productCart?.colorsAvilable[0]
-                              )
-                            }
-                            style={{
-                              backgroundColor: `${productCart?.colorsAvilable[0]}`,
-                              filter: "brightness(120%)",
-                            }}
-                            className={`border-2 border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
-                          ></button>
-                          <button
-                            onClick={() =>
-                              handleProductColor(
-                                productCart,
-                                productCart?.colorsAvilable[1]
-                              )
-                            }
-                            style={{
-                              backgroundColor: `${productCart?.colorsAvilable[1]}`,
-                              filter: "brightness(120%)",
-                            }}
-                            className={`border-2  border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
-                          ></button>
-                          <button
-                            onClick={() =>
-                              handleProductColor(
-                                productCart,
-                                productCart?.colorsAvilable[2]
-                              )
-                            }
-                            style={{
-                              backgroundColor: `${productCart?.colorsAvilable[2]}`,
-                              filter: "brightness(120%)",
-                            }}
-                            className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
-                          ></button>
+                          {productCart?.colorsAvilable.length > 0 ? (
+                            <div>
+                              <button
+                                onClick={() =>
+                                  handleProductColor(
+                                    productCart,
+                                    productCart?.colorsAvilable[0]
+                                  )
+                                }
+                                style={{
+                                  backgroundColor: `${productCart?.colorsAvilable[0]}`,
+                                  filter: "brightness(120%)",
+                                }}
+                                className={`border-2 border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
+                              ></button>
+                              <button
+                                onClick={() =>
+                                  handleProductColor(
+                                    productCart,
+                                    productCart?.colorsAvilable[1]
+                                  )
+                                }
+                                style={{
+                                  backgroundColor: `${productCart?.colorsAvilable[1]}`,
+                                  filter: "brightness(120%)",
+                                }}
+                                className={`border-2  border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
+                              ></button>
+                              <button
+                                onClick={() =>
+                                  handleProductColor(
+                                    productCart,
+                                    productCart?.colorsAvilable[2]
+                                  )
+                                }
+                                style={{
+                                  backgroundColor: `${productCart?.colorsAvilable[2]}`,
+                                  filter: "brightness(120%)",
+                                }}
+                                className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
+                              ></button>
+                            </div>
+                          ) : null}
                         </div>
-                        {/* <div
-                          className={`border-2 border-gray-300 ml-1 bg-${productCart.color} rounded-full w-6 h-6 focus:outline-none`}
-                        ></div> */}
                       </div>
                     </div>
                   </div>
@@ -239,7 +244,6 @@ function Cart() {
                 <p className="text-lg font-bold">Total</p>
                 <div className="">
                   <p className="mb-1 text-lg font-bold">${total?.toFixed(2)}</p>
-                  <p className="text-sm text-gray-700">including VAT</p>
                 </div>
               </div>
               {user !== null ? (

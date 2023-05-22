@@ -12,7 +12,7 @@ function LoginSuccess() {
     dispatch(logout());
     navigate("/login");
   };
-  console.log(userSucces);
+
   return (
     <>
       <Navbar />

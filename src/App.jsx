@@ -1,7 +1,5 @@
-import { useState } from "react";
 import "./App.css";
 import Collections from "./pages/Collections/Collections";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
@@ -16,6 +14,7 @@ import Register from "./pages/Register/Register";
 import SuccessRegister from "./pages/Register/SuccessRegister";
 import { useSelector } from "react-redux";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+
 const Home = lazy(() => import("./pages/Home/Home"));
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -34,12 +33,11 @@ function App() {
         <Route path="/collections/:filter" element={<Collections />} />
         <Route path="/products/:id" element={<ProductDetails />} />
         <Route path="/favorite" element={<Favorite />} />
-
         <Route path="/about" element={<About />} />
         <Route path="/success" element={<SuccessOrder />} />
         <Route path="/cancel" element={<Cancel />} />
         <Route path="/cart" element={<Cart />} />
-
+        <Route path="/404" element={<PageNotFound />} />
         <Route path="/register" element={<Register />} />
         <Route path="/register-success" element={<SuccessRegister />} />
         <Route path="/login" element={<Login />} />

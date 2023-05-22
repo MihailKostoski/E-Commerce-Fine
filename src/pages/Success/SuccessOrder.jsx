@@ -13,7 +13,6 @@ const SuccessOrder = () => {
   const dataStripe = stateLoc?.stripeData;
   const cart = stateLoc?.products;
   const currentUser = useSelector((state) => state?.user?.currentUser);
-  const [orderId, setOrderId] = useState(null);
   const order = useSelector((state) => state.order.order);
   const dispatch = useDispatch();
   const [orderResponse, setOrderResponse] = useState("");
@@ -22,7 +21,7 @@ const SuccessOrder = () => {
     const createOrder = async () => {
       if (order !== false) {
         try {
-          const response = await userRequest.post("/orders", {
+          const response = await userRequest.post("fine/orders", {
             userId: currentUser?._id,
             products: cart.products?.map((item) => ({
               productId: item._id,
@@ -31,34 +30,22 @@ const SuccessOrder = () => {
             amount: cart?.total,
             address: dataStripe?.billing_details.address,
           });
+
           setOrderResponse(response.data);
           dispatch(addOrder(false));
           dispatch(removeCart());
         } catch (error) {
           console.error("Error creating order:", error);
-          navigate("/cancel");
+          stateLoc ? navigate("/cancel") : null;
         }
       } else {
         console.log("Already ordered");
       }
     };
 
-    const getOrder = async () => {
-      try {
-        const response = await userRequest.get("/orders");
-        setOrderId(response.data);
-      } catch (error) {
-        console.error("Error getting order:", error);
-      }
-    };
-
     createOrder();
-    getOrder();
-  }, []); // Empty dependency array to run the effect only once
+  }, []);
 
-  console.log(orderId, "ord");
-  console.log(order, "order");
-  console.log(orderResponse, "orderRes");
   return (
     <>
       {stateLoc ? (

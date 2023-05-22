@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
-import { AiOutlineHeart, AiOutlineSearch, AiOutlineDown } from "react-icons/ai";
+import { AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
 import { MdPersonOutline } from "react-icons/md";
 import { SlBasket } from "react-icons/sl";
 import { MemoizedShopNavList } from "./DropDownLists/ShopList";
@@ -120,8 +120,7 @@ function Navbar() {
                 >
                   {user !== null ? (
                     <span className="text-xs font-semibold">
-                      {" "}
-                      {user.username}{" "}
+                      {user.username}
                     </span>
                   ) : (
                     <MdPersonOutline />

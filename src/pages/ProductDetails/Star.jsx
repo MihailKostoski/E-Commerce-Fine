@@ -3,7 +3,6 @@ import { FaStar } from "react-icons/fa";
 
 const Star = ({ rate, setRate }) => {
   const [hoverFill, setHoverFill] = useState(null);
-  console.log(rate, "rate");
 
   const handleClick = (value) => {
     if (rate === value) {

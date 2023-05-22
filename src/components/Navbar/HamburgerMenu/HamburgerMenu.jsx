@@ -1,23 +1,20 @@
 import React from "react";
-import { useState, useRef } from "react";
-import {
-  AiOutlineClose,
-  AiOutlineDown,
-  AiOutlineSearch,
-  AiOutlineUp,
-} from "react-icons/ai";
+import { useState } from "react";
+import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import { MemoizedWomenShowMore } from "./ShowMoreHamb/WomenShowMore";
 import { MemoizedMenShowMore } from "./ShowMoreHamb/MenShowMore";
 import { MemoizedAccessoriesShowMore } from "./ShowMoreHamb/AccessoriesShowMore";
 import { MemoizedBrandsShowMore } from "./ShowMoreHamb/BrandsShowMore";
 import { MemoizedAboutFineShowMore } from "./ShowMoreHamb/AboutFineShowMore";
-
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
   const [showMoreWom, setShowMoreWom] = useState(false);
   const [showMoreMen, setShowMoreMen] = useState(false);
   const [showMoreAccs, setShowMoreAccs] = useState(false);
   const [showMoreBd, setShowMoreBd] = useState(false);
   const [showMoreAbFi, setShowMoreAbFi] = useState(false);
+  const user = useSelector((state) => state.user.currentUser);
 
   const handleSearchOpen = () => {
     if (hambMenuOpen) {
@@ -25,7 +22,7 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
       setSearchOpen(true);
     }
   };
-  console.log("hamb menu");
+
   return (
     <div>
       <div
@@ -57,41 +54,14 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
               </div>
             </li>
             <li>
-              <a
-                href="#"
+              <Link
+                to="/"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                {/* <svg
-                  aria-hidden="true"
-                  className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg> */}
                 <span className="ml-3">Home</span>
-              </a>
+              </Link>
             </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                {/* <svg
-                  aria-hidden="true"
-                  className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg> */}
-                <span className="ml-3">Shop</span>
-              </a>
-            </li>
+            <li></li>
             <li>
               <MemoizedWomenShowMore
                 showMoreWom={showMoreWom}
@@ -124,13 +94,12 @@ function HamburgerMenu({ hambMenuOpen, setHambMenuOpen, setSearchOpen }) {
             </li>
 
             <li>
-              <a
-                href="#"
+              <Link
+                to={user !== null ? "/login-success" : "/login"}
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                {/* <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h5v2H5a1 1 0 01-1-1zm7 1h4a1 1 0 001-1v-1h-5v2zm0-4h5V8h-5v2zM9 8H4v2h5V8z" clip-rule="evenodd"></path></svg> */}
                 <span className="flex-1 ml-3 whitespace-nowrap">Sign Up</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

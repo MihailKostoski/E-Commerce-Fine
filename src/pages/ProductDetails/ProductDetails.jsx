@@ -2,29 +2,21 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { BsFillHeartFill } from "react-icons/bs";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
-import axios from "axios";
 import {
   AiOutlineDown,
-  AiOutlineHeart,
   AiOutlineMinus,
   AiOutlinePlus,
   AiTwotoneMessage,
 } from "react-icons/ai";
-
 import { MemoizedStar } from "./Star";
 import { useSelector } from "react-redux";
 import { addProduct } from "../../redux/cartSlice";
 import { addFavorite } from "../../redux/favoriteSlice";
 import { useDispatch } from "react-redux";
 import { Navbar } from "../indexComp";
+import { publicRequest } from "../../Url/url";
 
 function ProductDetails() {
-  const cart = useSelector((state) => state.cart.products);
-
-  const favor = useSelector((state) => state.favorite.favorite);
-  console.log(cart, "cart");
-  console.log(favor, "favor");
-
   const [rate, setRate] = useState(3);
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
@@ -33,17 +25,13 @@ function ProductDetails() {
   const [price, setPrice] = useState();
   const [color, setColor] = useState();
   const [size, setSize] = useState();
-  console.log(productDetail, "detail");
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/fine/products/find/${id}`)
-      .then((response) => {
-        setProductDetail(response.data);
-      });
+    publicRequest.get(`fine/products/find/${id}`).then((response) => {
+      setProductDetail(response.data);
+    });
   }, [id]);
-
-  const dispatch = useDispatch();
 
   const handleFavorite = (heart, click) => {
     dispatch(addFavorite({ heart, click }));
@@ -55,7 +43,6 @@ function ProductDetails() {
     }
   };
 
-  console.log(toggleFavorite, "toggle");
   const handleAddToCart = (product) => {
     if (color === undefined || price === undefined || size === undefined) {
       setColor(productDetail?.color);
@@ -72,7 +59,9 @@ function ProductDetails() {
         size: size || productDetail?.size,
       })
     );
-
+    setColor(productDetail?.color);
+    setPrice(productDetail?.price);
+    setSize(productDetail?.size);
     setQuantity(1);
   };
   const handleColorClick = useMemo(
@@ -98,9 +87,7 @@ function ProductDetails() {
       setPrice(currentTotalPrice - productDetail.price);
     }
   };
-  console.log(price, "pri");
-  console.log(size, "size");
-  console.log(color, "Tpri");
+
   return (
     <>
       <Navbar />
@@ -136,14 +123,7 @@ function ProductDetails() {
                   </a>
                 </span>
               </div>
-              <p className="leading-relaxed">
-                Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-                sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-                juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-                seitan poutine tumeric. Gastropub blue bottle austin listicle
-                pour-over, neutra jean shorts keytar banjo tattooed umami
-                cardigan.
-              </p>
+              <p className="leading-relaxed">{productDetail?.description}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
                 <div className="flex flex-row gap-1">
                   <span className="mr-3">Color</span>
@@ -157,64 +137,72 @@ function ProductDetails() {
                       filter: "brightness(120%)",
                     }}
                   ></button>
-                  <button
-                    onClick={() =>
-                      handleColorClick(productDetail?.colorsAvilable[0])
-                    }
-                    style={{
-                      backgroundColor: `${productDetail?.colorsAvilable[0]}`,
-                      filter: "brightness(120%)",
-                    }}
-                    className={`border-2 border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
-                  ></button>
-                  <button
-                    onClick={() =>
-                      handleColorClick(productDetail?.colorsAvilable[1])
-                    }
-                    style={{
-                      backgroundColor: `${productDetail?.colorsAvilable[1]}`,
-                      filter: "brightness(120%)",
-                    }}
-                    className={`border-2  border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
-                  ></button>
-                  <button
-                    onClick={() =>
-                      handleColorClick(productDetail?.colorsAvilable[2])
-                    }
-                    style={{
-                      backgroundColor: `${productDetail?.colorsAvilable[2]}`,
-                      filter: "brightness(120%)",
-                    }}
-                    className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
-                  ></button>
+                  {productDetail?.colorsAvilable.length > 0 ? (
+                    <div>
+                      <button
+                        onClick={() =>
+                          handleColorClick(productDetail?.colorsAvilable[0])
+                        }
+                        style={{
+                          backgroundColor: `${productDetail?.colorsAvilable[0]}`,
+                          filter: "brightness(120%)",
+                        }}
+                        className={`border-2 border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
+                      ></button>
+                      <button
+                        onClick={() =>
+                          handleColorClick(productDetail?.colorsAvilable[1])
+                        }
+                        style={{
+                          backgroundColor: `${productDetail?.colorsAvilable[1]}`,
+                          filter: "brightness(120%)",
+                        }}
+                        className={`border-2  border-gray-400 rounded-full w-6 h-6 focus:outline-none`}
+                      ></button>
+                      <button
+                        onClick={() =>
+                          handleColorClick(productDetail?.colorsAvilable[2])
+                        }
+                        style={{
+                          backgroundColor: `${productDetail?.colorsAvilable[2]}`,
+                          filter: "brightness(120%)",
+                        }}
+                        className={`border-2 border-gray-400   rounded-full w-6 h-6 focus:outline-none`}
+                      ></button>
+                    </div>
+                  ) : null}
                 </div>
                 <div className="flex flex-row gap-2 ml-6 items-center">
                   <span className="">Size</span>
                   <span className="bg-gray-200 px-1 ">
                     {productDetail?.size}
                   </span>
-                  <div className="relative">
-                    <select
-                      onChange={(event) => handleSizeClick(event.target.value)}
-                      className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10"
-                    >
-                      <option value={`${productDetail?.sizeAvilable[0]}`}>
-                        {productDetail?.sizeAvilable[0]}
-                      </option>
-                      <option value={`${productDetail?.sizeAvilable[1]}`}>
-                        {productDetail?.sizeAvilable[1]}
-                      </option>
-                      <option value={`${productDetail?.sizeAvilable[2]}`}>
-                        {productDetail?.sizeAvilable[2]}
-                      </option>
-                      <option value={`${productDetail?.sizeAvilable[3]}`}>
-                        {productDetail?.sizeAvilable[3]}
-                      </option>
-                    </select>
-                    <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                      <AiOutlineDown />
-                    </span>
-                  </div>
+                  {productDetail?.size !== "one size" ? (
+                    <div className="relative">
+                      <select
+                        onChange={(event) =>
+                          handleSizeClick(event.target.value)
+                        }
+                        className="rounded border appearance-none border-gray-400 py-2 focus:outline-none focus:border-red-500 text-base pl-3 pr-10"
+                      >
+                        <option value={`${productDetail?.sizeAvilable[0]}`}>
+                          {productDetail?.sizeAvilable[0]}
+                        </option>
+                        <option value={`${productDetail?.sizeAvilable[1]}`}>
+                          {productDetail?.sizeAvilable[1]}
+                        </option>
+                        <option value={`${productDetail?.sizeAvilable[2]}`}>
+                          {productDetail?.sizeAvilable[2]}
+                        </option>
+                        <option value={`${productDetail?.sizeAvilable[3]}`}>
+                          {productDetail?.sizeAvilable[3]}
+                        </option>
+                      </select>
+                      <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                        <AiOutlineDown />
+                      </span>
+                    </div>
+                  ) : null}
                 </div>
               </div>
               <div className="flex flex-row justify-center items-center">
