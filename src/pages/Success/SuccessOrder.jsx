@@ -23,9 +23,9 @@ const SuccessOrder = () => {
         try {
           const response = await userRequest.post("fine/orders", {
             userId: currentUser?._id,
-            products: cart.products?.map((item) => ({
-              productId: item._id,
-              quantity: item._quantity,
+            products: cart?.products?.map((item) => ({
+              productId: item?._id,
+              quantity: item?._quantity,
             })),
             amount: cart?.total,
             address: dataStripe?.billing_details.address,

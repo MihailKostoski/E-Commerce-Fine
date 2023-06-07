@@ -1,6 +1,6 @@
 import axios from "axios";
 // const BASE_URL = "http://localhost:5000/";
-const BASE_URL = "https://fine-e-commerce.herokuapp.com/";
+const BASE_URL = "https://e-commece-fine.herokuapp.com/";
 
 const user = JSON.parse(localStorage.getItem("persist:root"))?.user;
 const currentUser = user && JSON.parse(user).currentUser;

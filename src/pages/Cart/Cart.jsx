@@ -25,7 +25,8 @@ function Cart() {
   const [waiting, setWaiting] = useState(false);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
-  const KEY = import.meta.env.VITE_STRIPE_KEY;
+  const KEY =
+    "pk_test_51N6wrtBpKW3TjKXnezUjMy3lByr0IqfvNLHAEm1A1KELLqbTgIs4rRfYdTryZj459YfM82YMG5BZRSXqlhE5TZoZ00l70rYSgs"; //// I am sharing this key for review purposes
 
   const onToken = (token) => {
     setStripeToken(token);
@@ -47,12 +48,8 @@ function Cart() {
       }
     };
 
-    const timeoutId = setTimeout(() => {
-      dispatch(addOrder(true));
-      stripeToken && makeRequest();
-    }, 1000);
-
-    return () => clearTimeout(timeoutId);
+    dispatch(addOrder(true));
+    stripeToken && makeRequest();
   }, [stripeToken, total, navigate, dispatch]);
   const handleProductQuantity = (product, click) => {
     dispatch(handleQuantityClickRedux({ product, click }));
