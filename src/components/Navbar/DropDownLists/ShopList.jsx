@@ -1,7 +1,7 @@
 import React from "react";
 import { AiOutlineDown } from "react-icons/ai";
 import womenDropDown from "../../../assets/Images/womenDropDown.jpg";
-import menDropDown from "../../../assets/Images/menDropDown.jpg";
+import menDropDown from "../../../assets/Images/menDropdown.jpg";
 import { Link } from "react-router-dom";
 function ShopNavList({ openShop }) {
   return (
