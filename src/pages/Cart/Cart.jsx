@@ -25,8 +25,7 @@ function Cart() {
   const [waiting, setWaiting] = useState(false);
   const [stripeToken, setStripeToken] = useState(null);
   const navigate = useNavigate();
-  const KEY =
-    "pk_test_51N6wrtBpKW3TjKXnezUjMy3lByr0IqfvNLHAEm1A1KELLqbTgIs4rRfYdTryZj459YfM82YMG5BZRSXqlhE5TZoZ00l70rYSgs"; //// I am sharing this key for review purposes
+  const KEY = import.meta.env.VITE_STRIPE_KEY;
 
   const onToken = (token) => {
     setStripeToken(token);

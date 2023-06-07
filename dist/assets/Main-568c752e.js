@@ -1,0 +1,1 @@
+import{r as e,_ as r,a as s,j as a,S as i}from"./index-f95e0125.js";const l=e.lazy(()=>r(()=>import("./MainGrid-c9ba248f.js"),["assets/MainGrid-c9ba248f.js","assets/index-f95e0125.js","assets/index-f06998f6.css"]));function t(){return s("div",{className:"flex flex-col lg:flex-row",children:[a(i,{}),a(e.Suspense,{fallback:a("div",{}),children:a(l,{})})]})}export{t as default};
